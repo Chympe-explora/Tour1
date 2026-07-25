@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">Krem Chympe Explora - ULTIMATE GOD MODE</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*{font-family:'Inter',sans-serif}.jakarta{font-family:'Plus Jakarta Sans',sans-serif}
+.card{border-radius:14px;box-shadow:0 1px 3px rgba(45,25,110,.12),0 1px 2px rgba(45,25,110,.08);background:#fff}
+.toast{position:fixed;top:20px;right:20px;background:#121212;color:#fff;padding:12px 20px;border-radius:10px;z-index:9999;transform:translateX(200%);transition:transform .3s}.toast.show{transform:translateX(0)}
+.view{display:none}.view.active{display:block}
+.highlight{outline:3px solid #FFD700;box-shadow:0 0 20px rgba(255,215,0,0.5)}
+.magic-glow{animation:glow 2s infinite}
+@keyframes glow{0%,100%{box-shadow:0 0 10px rgba(139,92,246,0.5)}50%{box-shadow:0 0 30px rgba(139,92,246,0.8)}}
+</style>
+</head>
+<body id="body" class="bg-[#F8F7FF]">
+<div id="toast" class="toast"></div>
+<div id="noticeBanner" class="text-white text-center py-2 px-4 text-[13px] font-medium sticky top-0 z-50" style="background: var(--notice-bg, #5B3EE0)"></div>
+<header id="header" class="bg-white shadow-sm sticky top-[28px] z-40">
+<div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div id="logoBox" class="w-10 h-10 rounded-xl flex items-center justify-center text-white font-bold overflow-hidden" style="background: var(--primary, #5B3EE0)">
+<img id="logoImg" src="" class="w-full h-full object-cover hidden"><span id="logoText">KC</span>
+</div>
+<div><h1 id="headerTitle" class="jakarta font-extrabold leading-none text-[14px]">KREM CHYMPE EXPLORA</h1><p id="headerSub" class="text-[10px] text-gray-500">Brishyrnot • East Jaintia Hills • Homestay</p></div>
+</div>
+<div class="flex gap-2">
+<a id="waHeader" href="#" target="_blank" class="bg-[#25D366] text-white px-4 py-2 rounded-full text-xs font-bold">WhatsApp</a>
+<button id="menuBtn" class="md:hidden">☰</button>
+<button id="godModeIndicator" onclick="openAdmin()" class="hidden bg-black text-white px-2 py-1 rounded text-[10px] magic-glow">GOD MODE</button>
+</div>
+</div>
+<div id="mobileMenu" class="hidden bg-white border-t px-4 py-3 flex flex-col gap-2 text-sm"></div>
+</header>
+
+<main class="max-w-[640px] md:max-w-3xl mx-auto px-4 py-6">
+<div id="view-home" class="view active">
+<div id="heroSection" class="rounded-[24px] p-6 md:p-8 text-white relative overflow-hidden" style="background: linear-gradient(135deg, var(--hero-from, #121212), var(--hero-via, #1E1A3C), var(--hero-to, #5B3EE0))">
+<span id="heroBadge" class="bg-white/10 border border-white/20 px-3 py-1 rounded-full text-[11px]"></span>
+<h2 id="heroTitle" class="jakarta text-[26px] md:text-4xl font-extrabold mt-4 leading-tight"></h2>
+<p id="heroSub" class="mt-3 text-white/70 text-[13px] leading-5"></p>
+<div id="packageButtons" class="mt-6 grid gap-2 md:gap-3"></div>
+<p id="heroHint" class="text-[11px] text-white/50 mt-3 text-center"></p>
+</div>
+<div id="dynamicSections" class="mt-6 grid gap-3"></div>
+<div id="gallerySection" class="card p-4 mt-3"><button class="w-full text-left font-bold text-sm flex justify-between" onclick="toggleCollapse('galleryGrid', this)"><span id="galleryTitle">Gallery</span> <span>▼</span></button><div id="galleryGrid" class="grid grid-cols-2 md:grid-cols-3 gap-2 mt-3"></div></div>
+</div>
+
+<div id="view-booking" class="view">
+<div class="flex items-center gap-2 mb-4"><button onclick="showView('home')" class="border bg-white px-3 py-2 rounded-full text-xs font-bold">← Back</button><span id="bookingPackageLabel" class="text-xs font-bold bg-[#5B3EE0] text-white px-3 py-2 rounded-full"></span></div>
+<div id="bookingFormContainer" class="p-3 rounded-[20px]" style="background: var(--form-bg, #F3EFFC)"></div>
+</div>
+
+<div id="view-payment" class="view">
+<div class="flex items-center gap-2 mb-4"><button onclick="goBackToBooking()" class="border bg-white px-3 py-2 rounded-full text-xs font-bold">← Back</button><span class="text-xs font-bold bg-black text-white px-3 py-2 rounded-full">Payment - Page 3</span></div>
+<div id="paymentContainer" class="p-3 rounded-[20px]" style="background: var(--form-bg, #F3EFFC)"></div>
+</div>
+
+<div id="view-thankyou" class="view"><div id="thankyouContainer" class="p-3 rounded-[20px]" style="background: var(--form-bg, #F3EFFC)"></div></div>
+
+<footer class="text-center py-10 text-[11px] text-gray-400 border-t mt-10"><p id="footerText"></p><p class="mt-1">Tap 7 times for ULTIMATE GOD MODE • #admin • Magic Features</p></footer>
+</main>
+
+<div id="adminOverlay" class="fixed inset-0 bg-black/90 z-[999] hidden overflow-y-auto p-2 md:p-4">
+<div class="max-w-5xl mx-auto bg-white rounded-2xl p-4 md:p-6 my-2 md:my-6">
+<div class="flex justify-between items-center">
+<h2 class="text-lg md:text-xl font-bold">🔥 ULTIMATE GOD MODE + 🪄 MAGIC</h2>
+<button onclick="closeAdmin()" class="bg-gray-200 px-3 py-1 rounded">X Close</button>
+</div>
+<p class="text-xs text-gray-500 mt-1">Edit every letter, image, background, rearrange everything. Magic features auto-design from any image.</p>
+
+<div id="adminLogin" class="mt-4">
+<input id="adminPass" type="password" placeholder="Password" class="border p-3 rounded w-full">
+<button onclick="loginAdmin()" class="bg-[#5B3EE0] text-white px-6 py-3 rounded mt-3 w-full font-bold">Login to ULTIMATE GOD MODE</button>
+<p class="text-xs text-gray-400 mt-1">Default: chympe2024</p>
+</div>
+
+<div id="adminPanel" class="hidden">
+<div class="flex flex-wrap gap-1 mt-4 mb-4 sticky top-0 bg-white z-10 py-2 border-b">
+<button onclick="switchTab('magic')" class="tabBtn bg-gradient-to-r from-purple-600 to-pink-600 text-white px-2 py-1 rounded text-[11px] magic-glow">🪄 Magic</button>
+<button onclick="switchTab('texts')" class="tabBtn bg-gray-200 px-2 py-1 rounded text-[11px]">Every Text</button>
+<button onclick="switchTab('sections')" class="tabBtn bg-gray-200 px-2 py-1 rounded text-[11px]">Sections + Images</button>
+<button onclick="switchTab('buttons')" class="tabBtn bg-gray-200 px-2 py-1 rounded text-[11px]">Buttons</button>
+<button onclick="switchTab('packages')" class="tabBtn bg-gray-200 px-2 py-1 rounded text-[11px]">Packages</button>
+<button onclick="switchTab('prices')" class="tabBtn bg-gray-200 px-2 py-1 rounded text-[11px]">Prices</button>
+<button onclick="switchTab('payments')" class="tabBtn bg-gray-200 px-2 py-1 rounded text-[11px]">Payments</button>
+<button onclick="switchTab('bamboo')" class="tabBtn bg-gray-200 px-2 py-1 rounded text-[11px]">Bamboo</button>
+<button onclick="switchTab('gallery')" class="tabBtn bg-gray-200 px-2 py-1 rounded text-[11px]">Gallery</button>
+<button onclick="switchTab('design')" class="tabBtn bg-gray-200 px-2 py-1 rounded text-[11px]">Design</button>
+<button onclick="switchTab('advanced')" class="tabBtn bg-gray-200 px-2 py-1 rounded text-[11px]">Advanced</button>
+<button onclick="switchTab('bookings')" class="tabBtn bg-gray-200 px-2 py-1 rounded text-[11px]">Bookings</button>
+</div>
+
+<!-- MAGIC TAB -->
+<div id="tab-magic" class="adminTab space-y-3 text-xs">
+<div class="bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-300 p-4 rounded-xl">
+<h3 class="font-bold text-sm">🪄 MAGIC FEATURES - Upload Any Image, Website Transforms!</h3>
+<p class="mt-1">This is like magic! Upload any design image and website rearranges itself just like in image.</p>
+</div>
+
+<!-- Feature 1: Magic Design Upload -->
+<div class="border-2 border-dashed border-purple-300 rounded-xl p-4 bg-white text-center">
+<input type="file" id="magicDesignFile" accept="image/*" class="hidden">
+<div id="magicDropZone" class="cursor-pointer py-4" onclick="document.getElementById('magicDesignFile').click()">
+<div class="text-3xl">🖼️</div>
+<p class="font-bold mt-2">Tap to Upload ANY Design Image</p>
+<p class="text-[10px] text-gray-500">Your reference format, poster, screenshot - any image</p>
+</div>
+<img id="magicPreview" class="max-h-64 mx-auto mt-3 rounded-lg border hidden">
+<canvas id="magicCanvas" class="hidden"></canvas>
+<div id="magicColors" class="flex gap-2 mt-3 justify-center flex-wrap"></div>
+</div>
+
+<div id="magicActions" class="hidden space-y-3">
+<button onclick="autoRearrange()" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4 rounded-xl font-bold text-sm magic-glow">🪄 AUTO-REARRANGE WHOLE WEBSITE LIKE UPLOADED IMAGE - MAGIC!</button>
+
+<div class="grid grid-cols-2 gap-2">
+<button onclick="applyAllMagicColors()" class="bg-black text-white py-3 rounded-lg font-bold text-[11px]">🎨 Apply Colors from Image</button>
+<button onclick="useAsHeroBg()" class="bg-gray-800 text-white py-3 rounded-lg font-bold text-[11px]">🖼️ Use as Hero Background</button>
+</div>
+
+<div class="bg-white border rounded-lg p-3">
+<h4 class="font-bold">📐 8 Layout Presets - Rearrange Like Image:</h4>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2">
+<button onclick="applyMagicLayout('default')" class="border p-2 rounded text-[11px]">📄 Default<br><span class="text-[9px]">3 top</span></button>
+<button onclick="applyMagicLayout('stacked')" class="border p-2 rounded text-[11px]">📱 Stacked<br><span class="text-[9px]">Vertical</span></button>
+<button onclick="applyMagicLayout('grid2')" class="border p-2 rounded text-[11px]">🔲 2 Column<br><span class="text-[9px]">2 per row</span></button>
+<button onclick="applyMagicLayout('full')" class="border p-2 rounded text-[11px]">🖼️ Full Hero<br><span class="text-[9px]">Image hero</span></button>
+<button onclick="applyMagicLayout('magazine')" class="border p-2 rounded text-[11px]">📰 Magazine<br><span class="text-[9px]">Large+small</span></button>
+<button onclick="applyMagicLayout('minimal')" class="border p-2 rounded text-[11px]">✨ Minimal<br><span class="text-[9px]">Clean</span></button>
+<button onclick="applyMagicLayout('card')" class="border p-2 rounded text-[11px]">🎴 Cards<br><span class="text-[9px]">Rounded</span></button>
+<button onclick="applyMagicLayout('imagefocus')" class="border p-2 rounded text-[11px]">🌄 Gallery First<br><span class="text-[9px]">Image focus</span></button>
+</div>
+</div>
+</div>
+
+<!-- MAGIC FEATURES LIST -->
+<div class="bg-white border rounded-lg p-3 space-y-3">
+<h4 class="font-bold text-sm">✨ 15 MAGIC FEATURES Included:</h4>
+<div class="grid md:grid-cols-2 gap-2 text-[11px]">
+
+<div class="border p-2 rounded bg-purple-50">
+<b>1. 🖼️ Image to Website</b><br>
+Upload any design → Website copies colors + layout
+</div>
+
+<div class="border p-2 rounded bg-blue-50">
+<b>2. 🎨 Color Extractor</b><br>
+Auto-extracts 5 dominant colors from any image
+</div>
+
+<div class="border p-2 rounded bg-green-50">
+<b>3. 📐 Auto-Rearrange</b><br>
+One click → Packages, sections, gallery reorder
+</div>
+
+<div class="border p-2 rounded bg-yellow-50">
+<b>4. 🖼️ BG on Any Section</b><br>
+Add background image to any section
+</div>
+
+<div class="border p-2 rounded bg-pink-50">
+<b>5. ↔️ Drag Reorder</b><br>
+↑↓ buttons to move any section anywhere
+</div>
+
+<div class="border p-2 rounded bg-orange-50">
+<b>6. 🖼️ Hero BG Changer</b><br>
+Use any image as hero background
+</div>
+
+<div class="border p-2 rounded bg-red-50">
+<b>7. 🌍 Body BG</b><br>
+Full website background image (parallax)
+</div>
+
+<div class="border p-2 rounded bg-indigo-50">
+<b>8. 🎴 Layout Presets</b><br>
+8 different layouts like in reference images
+</div>
+
+<div class="border p-2 rounded bg-teal-50">
+<b>9. ⭐ Highlight Magic</b><br>
+Gold glow highlight any section/button
+</div>
+
+<div class="border p-2 rounded bg-cyan-50">
+<b>10. 📱 Phone Upload</b><br>
+Upload gallery, logo, QR, any image from phone
+</div>
+
+<div class="border p-2 rounded bg-lime-50">
+<b>11. 🎭 Seasonal Themes</b><br>
+<div class="flex gap-1 mt-1">
+<button onclick="applySeasonal('monsoon')" class="bg-blue-600 text-white px-2 py-1 rounded text-[9px]">🌧️ Monsoon</button>
+<button onclick="applySeasonal('winter')" class="bg-gray-600 text-white px-2 py-1 rounded text-[9px]">❄️ Winter</button>
+<button onclick="applySeasonal('festival')" class="bg-orange-500 text-white px-2 py-1 rounded text-[9px]">🎉 Festival</button>
+<button onclick="applySeasonal('night')" class="bg-black text-white px-2 py-1 rounded text-[9px]">🌙 Night</button>
+</div>
+</div>
+
+<div class="border p-2 rounded bg-amber-50">
+<b>12. 🔤 Font Magic</b><br>
+<div class="flex gap-1 mt-1">
+<button onclick="applyFont('default')" class="border px-2 py-1 rounded text-[9px]">Default</button>
+<button onclick="applyFont('bold')" class="border px-2 py-1 rounded text-[9px]">Bold</button>
+<button onclick="applyFont('fun')" class="border px-2 py-1 rounded text-[9px]">Fun</button>
+</div>
+</div>
+
+<div class="border p-2 rounded bg-violet-50">
+<b>13. ✨ Animation Magic</b><br>
+<div class="flex gap-1 mt-1">
+<button onclick="toggleAnimations()" class="bg-purple-600 text-white px-2 py-1 rounded text-[9px]">Toggle Animations</button>
+</div>
+</div>
+
+<div class="border p-2 rounded bg-rose-50">
+<b>14. 🪄 Smart Text Magic</b><br>
+<div class="flex gap-1 mt-1">
+<button onclick="magicRewrite()" class="bg-pink-600 text-white px-2 py-1 rounded text-[9px]">Rewrite Hero Title</button>
+</div>
+</div>
+
+<div class="border p-2 rounded bg-emerald-50">
+<b>15. 🎯 One-Click Presets</b><br>
+<div class="flex gap-1 mt-1">
+<button onclick="applyPreset('adventure')" class="bg-green-700 text-white px-2 py-1 rounded text-[9px]">Adventure</button>
+<button onclick="applyPreset('luxury')" class="bg-yellow-600 text-white px-2 py-1 rounded text-[9px]">Luxury</button>
+<button onclick="applyPreset('minimal')" class="bg-gray-500 text-white px-2 py-1 rounded text-[9px]">Minimal</button>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="bg-yellow-50 border border-yellow-200 p-3 rounded text-[11px]">
+<b>How Magic Works:</b><br>
+1. Upload any image you like (reference design)<br>
+2. Click <b>Auto-Rearrange</b><br>
+3. Website extracts colors + layout + vibe from image<br>
+4. Everything rearranges - colors, backgrounds, cards, sections<br>
+5. Click Save!
+</div>
+</div>
+
+<!-- TEXTS TAB -->
+<div id="tab-texts" class="adminTab hidden space-y-3">
+<div class="bg-purple-50 border border-purple-200 p-3 rounded text-xs">
+<b>📸 Logo Upload:</b>
+<div class="flex gap-2 mt-2">
+<input type="file" id="logoFile" accept="image/*" class="border p-2 rounded flex-1 bg-white">
+<button onclick="handleLogoUpload()" class="bg-green-600 text-white px-3 py-2 rounded text-xs font-bold">📱 Upload Logo</button>
+<button onclick="removeLogo()" class="bg-red-500 text-white px-3 py-2 rounded text-xs">Remove</button>
+</div>
+<img id="logoPreview" class="w-16 h-16 mt-2 border rounded object-contain bg-white hidden">
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+<div><label class="font-bold">Logo Text (if no image)</label><input id="a_logoText" class="border w-full p-2 rounded"></div>
+<div><label class="font-bold">Page Title</label><input id="a_pageTitle" class="border w-full p-2 rounded"></div>
+<div><label class="font-bold">Notice Banner</label><input id="a_notice" class="border w-full p-2 rounded"></div>
+<div><label class="font-bold">Header Title</label><input id="a_headerTitle" class="border w-full p-2 rounded"></div>
+<div><label class="font-bold">Header Sub</label><input id="a_headerSub" class="border w-full p-2 rounded"></div>
+<div><label class="font-bold">Hero Badge</label><input id="a_heroBadge" class="border w-full p-2 rounded"></div>
+<div class="md:col-span-2"><label class="font-bold">Hero Title</label><textarea id="a_heroTitle" class="border w-full p-2 rounded"></textarea></div>
+<div class="md:col-span-2"><label class="font-bold">Hero Subtitle</label><textarea id="a_heroSub" class="border w-full p-2 rounded"></textarea></div>
+<div><label class="font-bold">Hero Hint</label><input id="a_heroHint" class="border w-full p-2 rounded"></div>
+<div><label class="font-bold">Gallery Title</label><input id="a_galleryTitle" class="border w-full p-2 rounded"></div>
+<div><label class="font-bold">Footer</label><input id="a_footer" class="border w-full p-2 rounded"></div>
+<div><label class="font-bold">WhatsApp</label><input id="a_whatsapp" class="border w-full p-2 rounded"></div>
+<div><label class="font-bold">Booking Label</label><input id="a_bookingLabel" class="border w-full p-2 rounded"></div>
+</div>
+</div>
+
+<!-- SECTIONS TAB -->
+<div id="tab-sections" class="adminTab hidden">
+<div class="bg-yellow-50 p-3 rounded text-xs mb-3"><b>Sections - Add image on any section, background, rearrange however you want!</b><br>↑↓ to reorder, 📱 Upload BG for background image, + Add Images for inside images, BG Color, Text Color, Highlight ⭐</div>
+<div id="sectionsAdmin" class="space-y-2"></div>
+<button onclick="addSection()" class="bg-[#5B3EE0] text-white px-4 py-2 rounded text-xs mt-3">+ Add New Section</button>
+</div>
+
+<!-- BUTTONS TAB -->
+<div id="tab-buttons" class="adminTab hidden">
+<div id="buttonsAdmin" class="space-y-2"></div>
+<button onclick="addButtonConfig()" class="bg-[#5B3EE0] text-white px-4 py-2 rounded text-xs mt-3">+ Add New Button</button>
+</div>
+
+<!-- PACKAGES TAB -->
+<div id="tab-packages" class="adminTab hidden">
+<div id="packagesAdmin" class="space-y-3"></div>
+<button onclick="addPackage()" class="bg-[#5B3EE0] text-white px-4 py-2 rounded text-xs mt-3">+ Add Package</button>
+</div>
+
+<!-- PRICES TAB -->
+<div id="tab-prices" class="adminTab hidden grid grid-cols-2 gap-2 text-xs">
+<div><label>Jeep/group</label><input id="a_jeep" type="number" class="border w-full p-2 rounded"></div>
+<div><label>Guide/group</label><input id="a_guide" type="number" class="border w-full p-2 rounded"></div>
+<div><label>Adventure/person</label><input id="a_adventure" type="number" class="border w-full p-2 rounded"></div>
+<div><label>Lunch/person</label><input id="a_lunch" type="number" class="border w-full p-2 rounded"></div>
+<div><label>Tent/tent</label><input id="a_tent" type="number" class="border w-full p-2 rounded"></div>
+<div><label>Camp Meal/person</label><input id="a_cMeal" type="number" class="border w-full p-2 rounded"></div>
+<div><label>Overnight Guide</label><input id="a_overnight" type="number" class="border w-full p-2 rounded"></div>
+<div><label>Shared/person</label><input id="a_shared" type="number" class="border w-full p-2 rounded"></div>
+<div><label>Shared Advance</label><input id="a_advance" type="number" class="border w-full p-2 rounded"></div>
+<div><label>Camping Base</label><input id="a_campingBase" type="number" class="border w-full p-2 rounded"></div>
+</div>
+
+<!-- PAYMENTS TAB -->
+<div id="tab-payments" class="adminTab hidden space-y-2 text-xs">
+<label class="font-bold">UPI ID</label><input id="a_upi" class="border w-full p-2 rounded">
+<label class="font-bold">Bank Holder</label><input id="a_holder" class="border w-full p-2 rounded">
+<label class="font-bold">Account No</label><input id="a_acc" class="border w-full p-2 rounded">
+<label class="font-bold">IFSC</label><input id="a_ifsc" class="border w-full p-2 rounded">
+<label class="font-bold">Bank Name</label><input id="a_bankName" class="border w-full p-2 rounded">
+<label class="font-bold">QR URL</label><input id="a_qr" class="border w-full p-2 rounded">
+<input type="file" id="qrFile" accept="image/*" class="border w-full p-2 rounded">
+<img id="qrPreview" class="w-32 h-32 mt-2 border rounded object-contain">
+</div>
+
+<!-- BAMBOO TAB -->
+<div id="tab-bamboo" class="adminTab hidden">
+<div id="bambooAdmin" class="space-y-2"></div>
+<button onclick="addBamboo()" class="bg-[#5B3EE0] text-white px-4 py-2 rounded text-xs mt-3">+ Add Bamboo Dish</button>
+</div>
+
+<!-- GALLERY TAB -->
+<div id="tab-gallery" class="adminTab hidden">
+<div id="galleryAdmin" class="space-y-2"></div>
+<div class="space-y-2 mt-3">
+<div class="flex gap-2"><input type="file" id="galleryFiles" accept="image/*" multiple class="border p-2 rounded flex-1 text-xs bg-white"><button onclick="handleGalleryUpload()" class="bg-green-600 text-white px-4 py-2 rounded text-xs font-bold">📱 Upload from Phone</button></div>
+<div class="flex gap-2"><input id="newGalUrl" placeholder="Paste Image URL" class="border p-2 rounded flex-1 text-xs"><button onclick="addGallery()" class="bg-[#5B3EE0] text-white px-4 py-2 rounded text-xs">Add URL</button></div>
+</div>
+</div>
+
+<!-- DESIGN TAB -->
+<div id="tab-design" class="adminTab hidden space-y-3 text-xs">
+<div class="grid grid-cols-2 gap-2">
+<div><label>Primary Color</label><input type="color" id="a_primary" class="border w-full p-1 rounded h-10"><input id="a_primaryText" class="border w-full p-1 rounded mt-1"></div>
+<div><label>Notice BG</label><input type="color" id="a_noticeBg" class="border w-full p-1 rounded h-10"><input id="a_noticeBgText" class="border w-full p-1 rounded mt-1"></div>
+<div><label>Hero From</label><input type="color" id="a_heroFrom" class="border w-full p-1 rounded h-10"></div>
+<div><label>Hero Via</label><input type="color" id="a_heroVia" class="border w-full p-1 rounded h-10"></div>
+<div><label>Hero To</label><input type="color" id="a_heroTo" class="border w-full p-1 rounded h-10"></div>
+<div><label>Form BG</label><input type="color" id="a_formBg" class="border w-full p-1 rounded h-10"></div>
+</div>
+<div class="border p-2 rounded">
+<label class="font-bold">Hero Background Image</label>
+<div class="flex gap-1 mt-1"><input type="file" id="heroBgFile" accept="image/*" class="border p-1 rounded flex-1 text-[10px] bg-white"><button onclick="uploadHeroBg()" class="bg-green-600 text-white px-2 py-1 rounded text-[10px]">Upload Hero BG</button><button onclick="config.heroBgImage=''; renderSite(); toast('Hero BG removed')" class="bg-red-500 text-white px-1 rounded text-[10px]">Remove</button></div>
+</div>
+<div class="border p-2 rounded">
+<label class="font-bold">Body Background Image</label>
+<div class="flex gap-1 mt-1"><input type="file" id="bodyBgFile" accept="image/*" class="border p-1 rounded flex-1 text-[10px] bg-white"><button onclick="uploadBodyBg()" class="bg-green-600 text-white px-2 py-1 rounded text-[10px]">Upload Body BG</button><button onclick="config.bodyBgImage=''; document.body.style.backgroundImage=''; toast('Body BG removed')" class="bg-red-500 text-white px-1 rounded text-[10px]">Remove</button></div>
+</div>
+<label class="font-bold">Custom CSS (GOD MODE)</label><textarea id="a_customCSS" class="border w-full p-2 rounded h-24"></textarea>
+<div id="customCSSHolder"></div>
+</div>
+
+<!-- ADVANCED TAB -->
+<div id="tab-advanced" class="adminTab hidden space-y-3 text-xs">
+<label class="font-bold">Admin Password</label><input id="a_adminPass" class="border w-full p-2 rounded">
+<label class="font-bold">Next Button Text</label><input id="a_nextBtn" class="border w-full p-2 rounded">
+<label class="font-bold">Submit Button Text</label><input id="a_submitBtn" class="border w-full p-2 rounded">
+<label class="font-bold">WhatsApp Button Text</label><input id="a_waBtn" class="border w-full p-2 rounded">
+<label class="font-bold">Back Button Text</label><input id="a_backBtn" class="border w-full p-2 rounded">
+<label class="font-bold">Footer HTML</label><textarea id="a_footerHTML" class="border w-full p-2 rounded h-20"></textarea>
+<button onclick="resetConfig()" class="bg-red-600 text-white px-4 py-2 rounded w-full">Reset to Default</button>
+</div>
+
+<!-- BOOKINGS TAB -->
+<div id="tab-bookings" class="adminTab hidden">
+<div id="bookingsList" class="text-xs max-h-80 overflow-y-auto"></div>
+<button onclick="clearBookings()" class="bg-red-600 text-white px-4 py-2 rounded mt-3 text-xs">Clear All Bookings</button>
+<button onclick="exportBookings()" class="bg-gray-800 text-white px-4 py-2 rounded mt-3 text-xs ml-2">Export CSV</button>
+</div>
+
+<button onclick="saveAdmin()" class="w-full bg-[#5B3EE0] text-white py-4 rounded-xl font-bold mt-6 text-sm">💾 Save & Update Website 100% - ULTIMATE GOD MODE</button>
+<button onclick="closeAdmin()" class="w-full bg-gray-200 py-3 rounded-xl font-bold mt-3 text-sm">Close</button>
+<div class="flex gap-2 mt-3"><button onclick="exportConfig()" class="flex-1 border py-2 rounded text-xs">Export Config JSON</button><button onclick="document.getElementById('importFile').click()" class="flex-1 border py-2 rounded text-xs">Import Config</button><input type="file" id="importFile" accept=".json" class="hidden"></div>
+</div>
+</div>
+</div>
+
+<script>
+let defaultConfig={
+  pageTitle:"Krem Chympe Explora - ULTIMATE GOD MODE + MAGIC",
+  notice:"🔥 Monsoon Special: Cave in full flow! Book 3 days advance. Homestay Available - Brishyrnot Village",
+  headerTitle:"KREM CHYMPE EXPLORA",
+  headerSub:"Brishyrnot • East Jaintia Hills • Homestay",
+  heroBadge:"📍 Brishyrnot Village, East Jaintia Hills, Meghalaya • Homestay Available",
+  heroTitle:"Krem Chympe Cave & Khaddum Falls Adventure - 3 Packages - MAGIC Design",
+  heroSub:"Meghalaya's hidden underground river cave. Trekking, bamboo rafting, cliff jumping, cave exploration & overnight camping. Magic features auto-rearrange from any image!",
+  heroHint:"Tap a package above to start booking • WhatsApp: 6001877518 • Magic: Upload any image → Auto-rearrange",
+  galleryTitle:"Gallery - Magic Upload",
+  footer:"© Team Chympe Explora Official | Brishyrnot Village | WhatsApp: 6001877518",
+  logo:"", logoText:"KC",
+  heroBgImage:"", bodyBgImage:"",
+  whatsapp:"916001877518",
+  bookingLabel:"Page 2 - Booking Form Only",
+  sections:[
+    {id:"about", title:"About - Krem Chympe Fall & Cave", content:"<b>Location:</b> Brishyrnot Village<br><b>Destination:</b> Krem Chympe Falls & Cave<br><b>Activities:</b> Trekking, Bridge Crossing, Sightseeing, Waterfall Exploring, Boat/Bamboo Rafting, Cave Exploration, Overnight Camping<br><b>Facilities:</b> Local Guide, Multi Language Guide, Safety Gear & First Aid, 4x4 Vehicle, Life Jacket, Homestay & Local Food", visible:true, highlight:false, bgImage:"", bgColor:"", textColor:"", layout:"default", images:[]},
+    {id:"activities", title:"Activities", type:"grid", items:["🥾 Trekking","🌉 Bridge Crossing","👀 Sightseeing","💦 Waterfall","🛶 Bamboo Rafting","🕳️ Cave Exploration","⛺ Camping","🧗 Cliff Jump Khaddum"], visible:true, highlight:false, bgImage:"", bgColor:"", textColor:"", layout:"default", images:[]},
+    {id:"facilities", title:"Facilities", type:"grid", items:["🧑‍🏫 Local Guide","🗣️ Multi Language","🦺 Safety & First Aid","🚙 4x4 Off-road","🦺 Life Jacket Torch","🏠 Homestay","🍲 Local Food","📝 Entry Registration"], visible:true, highlight:false, bgImage:"", bgColor:"", textColor:"", layout:"default", images:[]}
+  ],
+  packages:[
+    {id:"camping", name:"Camping Package", badge:"⛺ CAMPING", desc:"Tent ₹1000 • Meals ₹300 • Guide ₹1000 • Bamboo Dishes", btn:"Book Camping →", color:"from-orange-400 to-red-500", textColor:"white", visible:true, highlight:false, order:1},
+    {id:"private", name:"Private Tour", badge:"PRIVATE", desc:"Custom group • Jeep ₹4000 • Guide ₹1500 • Adv ₹1200/p • +Camping", btn:"Book Private →", color:"white", textColor:"black", visible:true, highlight:false, order:2},
+    {id:"shared", name:"Shared ₹2500/p", badge:"SHARED - 8 PPL", desc:"Jeep + Guide + Safety + Entry + Lunch • No Camping", btn:"Join Shared →", color:"bg-[#5B3EE0]", textColor:"white", visible:true, highlight:false, order:3}
+  ],
+  upi:"suchiangwining-1@oksbi",
+  bank:{holder:"Wining Suchiang", acc:"1234567890", ifsc:"SBIN0000000", bankName:"State Bank of India"},
+  qr:"https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg",
+  prices:{jeep:4000, guide:1500, adventure:1200, lunch:300, tent:1000, cMeal:300, overnight:1000, shared:2500, advance:500, campingBase:2000},
+  hero:{from:"#121212", via:"#1E1A3C", to:"#5B3EE0"},
+  design:{primary:"#5B3EE0", noticeBg:"#5B3EE0", formBg:"#F3EFFC", customCSS:"", animations:true, font:"default"},
+  bamboo:[
+    {name:"Fresh Bamboo Chicken (500g)", price:699, visible:true, highlight:false},
+    {name:"Fresh Bamboo Chicken (1kg)", price:890, visible:true, highlight:false},
+    {name:"Fresh Bamboo Pork (500g)", price:799, visible:true, highlight:false},
+    {name:"Fresh Bamboo Pork (1kg)", price:1000, visible:true, highlight:false},
+    {name:"Roasted Pork Belly Salad (500g)", price:599, visible:true, highlight:false},
+    {name:"Roasted Pork Belly Salad (1kg)", price:900, visible:true, highlight:false},
+    {name:"Boiled Fish (Zero Oil)", price:250, visible:true, highlight:false},
+    {name:"Veg Bamboo Sabji", price:300, visible:true, highlight:false},
+    {name:"Boiled Egg", price:20, visible:true, highlight:false},
+    {name:"Bamboo Chai", price:20, visible:true, highlight:false}
+  ],
+  gallery:["https://images.unsplash.com/photo-1506905925346-21bda4d32df4","https://images.unsplash.com/photo-1448375240586-882707db888b","https://images.unsplash.com/photo-1527631746610-bca00a040d60"],
+  buttons:{wa:"📞 Send Payment Screenshot on WhatsApp", next:"Next → Payment", submit:"Submit Booking", back:"← Back"},
+  adminPass:"chympe2024",
+  payTitle:"Order Summary", paySkip:"⚠ PLEASE DON'T SKIP THIS"
+};
+let config=JSON.parse(localStorage.getItem('chympe_god_v2')||'null')||JSON.parse(JSON.stringify(defaultConfig));
+function saveConfig(){localStorage.setItem('chympe_god_v2', JSON.stringify(config));}
+function toast(m){let t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
+function copyText(txt, btn){navigator.clipboard.writeText(txt); if(btn){let o=btn.textContent; btn.textContent='Copied!'; setTimeout(()=>btn.textContent=o,1500);} toast('Copied!');}
+function downloadQR(){let a=document.createElement('a');a.href=config.qr;a.download='KremChympe_QR.png';a.target='_blank';a.click(); toast('Downloading QR');}
+function toggleCollapse(id, btn){let el=document.getElementById(id); if(!el) return; el.style.display = el.style.display==='none'?'':'none';}
+function fmt(n){return '₹'+Math.round(n).toLocaleString('en-IN');}
+let selectedPackage='private';
+let privateState={fullName:"", wa:"", email:"", persons:1, tourDate:"", jeep:"no", adventure:"yes", veg:0, chicken:0, pork:0, camping:"yes", tents:0, cMeals:"yes", bamboo:{}, payment:"upi", amountPaid:0};
+let sharedState={fullName:"", phone:"", email:"", tourDate:"", persons:1, payment:"UPI", amountPaid:500};
+let campingState={fullName:"", wa:"", email:"", persons:1, tourDate:"", tents:1, cMeals:"yes", bamboo:{}, payment:"upi", amountPaid:0};
+function showView(id){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active')); document.getElementById('view-'+id).classList.add('active'); window.scrollTo({top:0,behavior:'smooth'});}
+function selectPackage(p){selectedPackage=p; renderBookingForm(); showView('booking');}
+function goBackToBooking(){showView('booking');}
+function calcPrivate(){let t=config.prices.guide; if(privateState.jeep==='yes') t+=config.prices.jeep; if(privateState.adventure==='yes') t+=privateState.persons*config.prices.adventure; t+=(privateState.veg+privateState.chicken+privateState.pork)*config.prices.lunch; if(privateState.camping==='yes'){t+=privateState.tents*config.prices.tent; if(privateState.cMeals==='yes') t+=privateState.persons*config.prices.cMeal; t+=config.prices.overnight; config.bamboo.forEach((b,i)=>{if(b.visible!==false && privateState.bamboo[i]) t+=privateState.bamboo[i]*b.price});} return t;}
+function calcShared(){return sharedState.persons*config.prices.shared;}
+function calcCamp(){let t=config.prices.campingBase; t+=campingState.tents*config.prices.tent; if(campingState.cMeals==='yes') t+=campingState.persons*config.prices.cMeal; t+=config.prices.overnight; config.bamboo.forEach((b,i)=>{if(b.visible!==false && campingState.bamboo[i]) t+=campingState.bamboo[i]*b.price}); return t;}
+
+function renderSite(){
+  document.title=config.pageTitle;
+  document.getElementById('noticeBanner').textContent=config.notice;
+  document.getElementById('noticeBanner').style.background=config.design.noticeBg;
+  document.getElementById('headerTitle').textContent=config.headerTitle;
+  document.getElementById('headerSub').textContent=config.headerSub;
+  document.getElementById('heroBadge').textContent=config.heroBadge;
+  document.getElementById('heroTitle').textContent=config.heroTitle;
+  document.getElementById('heroSub').textContent=config.heroSub;
+  document.getElementById('heroHint').textContent=config.heroHint;
+  document.getElementById('galleryTitle').textContent=config.galleryTitle;
+  document.getElementById('footerText').innerHTML=config.footer;
+  document.getElementById('waHeader').href=`https://wa.me/${config.whatsapp}?text=Hi%20I%20want%20to%20book%20Krem%20Chympe`;
+  document.documentElement.style.setProperty('--primary', config.design.primary);
+  document.documentElement.style.setProperty('--notice-bg', config.design.noticeBg);
+  document.documentElement.style.setProperty('--form-bg', config.design.formBg);
+  document.getElementById('customCSSHolder').innerHTML=`<style>${config.design.customCSS||''} ${config.design.animations?'*{transition: all 0.3s ease} .card:hover{transform: translateY(-2px)}':''} ${config.design.font==='bold'?'.jakarta{font-weight:900 !important}':' ' } ${config.design.font==='fun'?'*{font-family: Comic Sans MS, cursive !important}':''}</style>`;
+
+  let logoImg=document.getElementById('logoImg');
+  let logoTextEl=document.getElementById('logoText');
+  let logoBox=document.getElementById('logoBox');
+  if(config.logo && config.logo.length>10){
+    logoImg.src=config.logo; logoImg.classList.remove('hidden'); logoTextEl.classList.add('hidden'); logoBox.style.background='transparent';
+  } else {
+    logoImg.classList.add('hidden'); logoTextEl.classList.remove('hidden'); logoTextEl.textContent=config.logoText||'KC'; logoBox.style.background=config.design.primary;
+  }
+
+  let pkgCont=document.getElementById('packageButtons');
+  let sorted=[...config.packages].sort((a,b)=>(a.order||0)-(b.order||0));
+  pkgCont.innerHTML='';
+  sorted.forEach(p=>{
+    if(p.visible===false) return;
+    let div=document.createElement('div');
+    let isWhite=p.color==='white' || p.color.includes('white');
+    div.className=`p-3 md:p-4 rounded-2xl text-left hover:scale-[1.02] transition cursor-pointer ${p.highlight?'highlight':''} ${isWhite?'bg-white text-black': p.color.startsWith('from-')?`bg-gradient-to-br ${p.color} text-white`:`text-white`}`;
+    if(!isWhite && !p.color.startsWith('from-')) div.style.background=p.color;
+    div.style.color=p.textColor|| (isWhite?'black':'white');
+    div.innerHTML=`<div class="text-[10px] ${isWhite?'bg-black/10':'bg-white/20'} inline-block px-2 py-1 rounded-full">${p.badge}</div><div class="font-bold mt-2 text-[13px] md:text-[15px] leading-tight">${p.name}</div><div class="text-[10px] mt-1 leading-tight opacity-80">${p.desc}</div><div class="text-[11px] font-bold mt-2">${p.btn}</div>`;
+    div.onclick=()=>selectPackage(p.id);
+    pkgCont.appendChild(div);
+  });
+
+  let secCont=document.getElementById('dynamicSections');
+  secCont.innerHTML='';
+  config.sections.forEach((s)=>{
+    if(s.visible===false) return;
+    let d=document.createElement('div');
+    d.className=`card overflow-hidden ${s.highlight?'highlight':''}`;
+    let bgStyle='';
+    if(s.bgColor) bgStyle+=`background-color:${s.bgColor} !important;`;
+    if(s.bgImage) bgStyle+=`background-image: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url('${s.bgImage}') !important; background-size: cover !important; background-position: center !important;`;
+    if(s.textColor) bgStyle+=`color:${s.textColor} !important;`;
+    if(bgStyle) d.style.cssText+=bgStyle;
+    let imagesHTML='';
+    if(s.images && s.images.length>0){
+      imagesHTML=`<div class="grid grid-cols-2 gap-2 mt-3">${s.images.map(img=>`<img src="${img}" class="w-full h-24 object-cover rounded-lg">`).join('')}</div>`;
+    }
+    if(s.type==='grid'){
+      d.innerHTML=`<button class="w-full text-left p-4 font-bold text-sm flex justify-between" onclick="toggleCollapse('sec_${s.id}', this)"><span>${s.title}</span> <span>▼</span></button><div id="sec_${s.id}" class="px-4 pb-4"><div class="grid grid-cols-2 gap-2 text-xs">${(s.items||[]).map(it=>`<span>${it}</span>`).join('')}</div>${imagesHTML}</div>`;
+    } else {
+      d.innerHTML=`<button class="w-full text-left p-4 font-bold text-sm flex justify-between" onclick="toggleCollapse('sec_${s.id}', this)"><span>${s.title}</span> <span>▼</span></button><div id="sec_${s.id}" class="px-4 pb-4 text-[13px] leading-5">${s.content}${imagesHTML}</div>`;
+    }
+    secCont.appendChild(d);
+  });
+
+  let heroSec=document.getElementById('heroSection');
+  if(config.heroBgImage){
+    heroSec.style.background=`linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('${config.heroBgImage}')`;
+    heroSec.style.backgroundSize='cover';
+    heroSec.style.backgroundPosition='center';
+  } else {
+    heroSec.style.background=`linear-gradient(135deg, ${config.hero.from}, ${config.hero.via}, ${config.hero.to})`;
+  }
+  if(config.bodyBgImage){
+    document.body.style.backgroundImage=`url('${config.bodyBgImage}')`;
+    document.body.style.backgroundSize='cover';
+    document.body.style.backgroundAttachment='fixed';
+    document.body.style.backgroundPosition='center';
+  } else {
+    document.body.style.backgroundImage='';
+  }
+
+  let g=document.getElementById('galleryGrid');
+  g.innerHTML='';
+  config.gallery.forEach((url,i)=>{
+    let div=document.createElement('div');
+    div.className='card overflow-hidden';
+    div.innerHTML=`<img src="${url}" class="h-28 w-full object-cover"><div class="p-1 text-[10px] flex justify-between"><span>Img ${i+1}</span><button onclick="window.open('${url}','_blank')" class="text-[#5B3EE0]">View</button></div>`;
+    g.appendChild(div);
+  });
+}
+
+function renderBookingForm(){
+  let c=document.getElementById('bookingFormContainer');
+  let label=document.getElementById('bookingPackageLabel');
+  let pkg=config.packages.find(p=>p.id===selectedPackage);
+  label.textContent=(pkg?pkg.name.toUpperCase():'') + ' - ' + config.bookingLabel;
+  if(selectedPackage==='private'){
+    let total=calcPrivate();
+    let bambooHTML=''; config.bamboo.forEach((b,i)=>{if(b.visible===false) return; let q=privateState.bamboo[i]||0; bambooHTML+=`<div class="flex justify-between items-center py-2 border-b last:border-0"><div><div class="text-[13px] font-medium">${b.name}</div><span class="text-[11px] text-gray-500">₹${b.price} each</span></div><div class="flex items-center gap-2"><button class="counter-btn" style="width:32px;height:32px;border:1.5px solid ${config.design.primary};border-radius:50%;display:flex;align-items:center;justify-content:center;background:#EFEAFB;color:${config.design.primary};font-weight:700" onclick="privateState.bamboo[${i}]=Math.max(0,${q}-1); renderBookingForm()">−</button><span class="text-xs w-4 text-center">${q}</span><button class="counter-btn" style="width:32px;height:32px;border:1.5px solid ${config.design.primary};border-radius:50%;display:flex;align-items:center;justify-content:center;background:#EFEAFB;color:${config.design.primary};font-weight:700" onclick="privateState.bamboo[${i}]=${q}+1; renderBookingForm()">+</button></div></div>`});
+    c.innerHTML=`<div class="card p-5 mb-3" style="border-top:8px solid ${config.design.primary}"><h3 class="text-[19px] font-semibold">Private Package Booking</h3><p class="text-[12px] text-gray-500 mt-1">Camping add-on only in private. GOD MODE editable.</p></div><div class="card p-4 mb-3"><label class="font-medium text-sm">Full Name *</label><input value="${privateState.fullName}" oninput="privateState.fullName=this.value" class="w-full border-b py-2 outline-none text-sm"></div><div class="card p-4 mb-3"><label class="font-medium text-sm">WhatsApp</label><input value="${privateState.wa}" oninput="privateState.wa=this.value" class="w-full border-b py-2 outline-none text-sm"></div><div class="card p-4 mb-3"><label class="font-medium text-sm">Persons *</label><input type="number" min="1" value="${privateState.persons}" oninput="privateState.persons=parseInt(this.value)||1; renderBookingForm()" class="w-full border-b py-2 outline-none text-sm"></div><div class="card p-4 mb-3"><label class="font-medium text-sm">Tour Date *</label><input type="date" value="${privateState.tourDate}" oninput="privateState.tourDate=this.value" class="w-full border-b py-2 outline-none text-sm"></div><div class="card p-4 mb-3"><p class="font-semibold text-sm">4×4 Jeep – ₹${config.prices.jeep} per Group</p><div class="mt-2 space-y-1 text-sm"><label class="flex gap-2"><input type="radio" name="jeep" ${privateState.jeep==='yes'?'checked':''} onclick="privateState.jeep='yes'; renderBookingForm()"> yes (+₹${config.prices.jeep})</label><label class="flex gap-2"><input type="radio" name="jeep" ${privateState.jeep==='no'?'checked':''} onclick="privateState.jeep='no'; renderBookingForm()"> No</label></div></div><div class="card p-4 mb-3"><p class="font-semibold text-sm">Local Guide – ₹${config.prices.guide} *</p><label class="flex gap-2 text-sm mt-2"><input type="radio" checked disabled> yes (mandatory)</label></div><div class="card p-4 mb-3 border-2 border-orange-300"><p class="font-bold text-sm">⛺ Camping Add-on - ONLY in Private</p><div class="mt-2 space-y-1 text-sm"><label class="flex gap-2"><input type="radio" name="camping" ${privateState.camping==='yes'?'checked':''} onclick="privateState.camping='yes'; renderBookingForm()"> yes</label><label class="flex gap-2"><input type="radio" name="camping" ${privateState.camping==='no'?'checked':''} onclick="privateState.camping='no'; renderBookingForm()"> No</label></div></div>${privateState.camping==='yes'?`<div class="card p-4 mb-3"><p class="font-semibold text-sm">Tent Rental – ₹${config.prices.tent} per Tent</p><div class="flex justify-between items-center mt-2"><span class="text-xs">Tents</span><div class="flex items-center gap-2"><button onclick="privateState.tents=Math.max(0,privateState.tents-1); renderBookingForm()" class="border rounded-full w-8 h-8">−</button><span class="text-xs">${privateState.tents}</span><button onclick="privateState.tents++; renderBookingForm()" class="border rounded-full w-8 h-8">+</button></div></div></div><div class="card p-4 mb-3"><button onclick="document.getElementById('bambooBody').classList.toggle('hidden')" class="w-full text-left font-semibold text-sm">Bamboo Dishes (Zero Oil) ▼</button><div id="bambooBody" class="hidden mt-3">${bambooHTML}</div></div>`:''}<div class="flex justify-between items-center mt-4"><span class="font-bold text-sm">Estimated: ${fmt(total)}</span><button onclick="goToPayment()" class="px-8 py-3 rounded-lg font-bold text-sm text-white" style="background:${config.design.primary}">${config.buttons.next}</button></div>`;
+  } else if(selectedPackage==='shared'){
+    let total=calcShared();
+    c.innerHTML=`<div class="card p-5 mb-3" style="border-top:8px solid ${config.design.primary}"><h3 class="text-[19px]">Shared Package - No Camping</h3><div class="text-[13px] mt-3">₹${config.prices.shared} per person<br>Includes: 4x4 Jeep, Guide, Safety, Entry, Lunch<br>Note: 8 people batch, ₹${config.prices.advance} advance</div></div><div class="card p-4 mb-3"><label class="font-medium text-sm">Full Name *</label><input value="${sharedState.fullName}" oninput="sharedState.fullName=this.value" class="w-full border-b py-2 outline-none text-sm"></div><div class="card p-4 mb-3"><label class="font-medium text-sm">Tour date *</label><input type="date" value="${sharedState.tourDate}" oninput="sharedState.tourDate=this.value" class="w-full border-b py-2 outline-none text-sm"></div><div class="card p-4 mb-3"><label class="font-medium text-sm">Persons *</label><input type="number" min="1" value="${sharedState.persons}" oninput="sharedState.persons=parseInt(this.value)||1; renderBookingForm()" class="w-full border-b py-2 outline-none text-sm"></div><div class="flex justify-between items-center mt-4"><span class="font-bold text-sm">Total: ${fmt(total)}</span><button onclick="goToPayment()" class="px-8 py-3 rounded-lg font-bold text-sm text-white" style="background:${config.design.primary}">${config.buttons.next}</button></div>`;
+  } else {
+    let total=calcCamp();
+    let bambooHTML=''; config.bamboo.forEach((b,i)=>{if(b.visible===false) return; let q=campingState.bamboo[i]||0; bambooHTML+=`<div class="flex justify-between items-center py-2 border-b"><div><div class="text-[13px] font-medium">${b.name}</div><span class="text-[11px] text-gray-500">₹${b.price}</span></div><div class="flex items-center gap-2"><button onclick="campingState.bamboo[${i}]=Math.max(0,${q}-1); renderBookingForm()" class="border rounded-full w-8 h-8">−</button><span class="text-xs">${q}</span><button onclick="campingState.bamboo[${i}]=${q}+1; renderBookingForm()" class="border rounded-full w-8 h-8">+</button></div></div>`});
+    c.innerHTML=`<div class="card p-5 mb-3" style="border-top:8px solid ${config.design.primary}"><h3 class="text-[19px] font-semibold">Camping Package</h3></div><div class="card p-4 mb-3"><label class="font-medium text-sm">Full Name *</label><input value="${campingState.fullName}" oninput="campingState.fullName=this.value" class="w-full border-b py-2 outline-none text-sm"></div><div class="card p-4 mb-3"><label class="font-medium text-sm">Persons *</label><input type="number" min="1" value="${campingState.persons}" oninput="campingState.persons=parseInt(this.value)||1; renderBookingForm()" class="w-full border-b py-2 outline-none text-sm"></div><div class="card p-4 mb-3"><label class="font-medium text-sm">Tour Date *</label><input type="date" value="${campingState.tourDate}" oninput="campingState.tourDate=this.value" class="w-full border-b py-2 outline-none text-sm"></div><div class="card p-4 mb-3"><button onclick="document.getElementById('bambooBodyCamp').classList.toggle('hidden')" class="w-full text-left font-semibold text-sm">Bamboo Dishes ▼</button><div id="bambooBodyCamp" class="hidden mt-3">${bambooHTML}</div></div><div class="flex justify-between items-center mt-4"><span class="font-bold text-sm">Estimated: ${fmt(total)}</span><button onclick="goToPayment()" class="px-8 py-3 rounded-lg font-bold text-sm text-white" style="background:${config.design.primary}">${config.buttons.next}</button></div>`;
+  }
+}
+function goToPayment(){
+  if(selectedPackage==='private'){ if(!privateState.fullName||!privateState.persons||!privateState.tourDate){toast('Fill required * fields'); return;} }
+  else if(selectedPackage==='shared'){ if(!sharedState.fullName||!sharedState.tourDate){toast('Fill required * fields'); return;} }
+  else { if(!campingState.fullName||!campingState.persons||!campingState.tourDate){toast('Fill required * fields'); return;} }
+  renderPaymentPage(); showView('payment');
+}
+function renderPaymentPage(){
+  let container=document.getElementById('paymentContainer');
+  let total = selectedPackage==='private'?calcPrivate(): selectedPackage==='shared'?calcShared():calcCamp();
+  let paymentMode = selectedPackage==='private'?privateState.payment: selectedPackage==='shared'?sharedState.payment:campingState.payment;
+  let amountPaid = selectedPackage==='private'?privateState.amountPaid: selectedPackage==='shared'?sharedState.amountPaid:campingState.amountPaid;
+  let payDetailHTML='';
+  if(paymentMode.includes('upi')||paymentMode.includes('UPI')){
+    payDetailHTML=`<div class="card p-4 mb-3"><h3 class="font-bold text-sm">UPI ID</h3><div class="flex justify-between items-center bg-[#F3EFFC] p-3 rounded mt-2"><code class="text-sm">${config.upi}</code><button onclick="copyText('${config.upi}', this)" class="bg-[#EFEAFB] px-3 py-1 rounded text-xs font-bold text-[#5B3EE0]">Copy</button></div></div>`;
+  } else if(paymentMode.includes('qr')||paymentMode.includes('QR')){
+    payDetailHTML=`<div class="card p-4 mb-3 text-center"><h3 class="font-bold text-sm">QR Code</h3><img src="${config.qr}" class="w-56 h-56 object-contain mx-auto border rounded-lg mt-3 bg-white"><p class="mt-2 font-bold text-sm">${fmt(total)}</p><button onclick="downloadQR()" class="bg-[#5B3EE0] text-white px-4 py-2 rounded mt-3 text-sm">Download QR</button></div>`;
+  } else {
+    payDetailHTML=`<div class="card p-4 mb-3"><h3 class="font-bold text-sm">Bank Details</h3><div class="mt-3 space-y-2 text-sm bg-[#F3EFFC] p-3 rounded"><div>Holder: ${config.bank.holder}</div><div>Acc: ${config.bank.acc}</div><div>IFSC: ${config.bank.ifsc}</div><div>Bank: ${config.bank.bankName}</div><div class="font-bold mt-2">Amount: ${fmt(total)}</div></div></div>`;
+  }
+  container.innerHTML=`<div class="card p-5 mb-3" style="border-top:8px solid ${config.design.primary}"><h3 class="font-bold">${config.payTitle} - ${selectedPackage.toUpperCase()}</h3><div class="font-bold text-base pt-2 mt-2 border-t">Total: ${fmt(total)}</div></div><div class="card p-4 mb-3"><p class="font-semibold text-sm">Payment mode *</p><div class="mt-3 space-y-2 text-sm"><label class="flex items-center gap-2 border p-3 rounded-lg"><input type="radio" name="paymode" ${paymentMode.includes('upi')?'checked':''} onclick="setPaymentMode('upi')"> UPI ID</label><label class="flex items-center gap-2 border p-3 rounded-lg"><input type="radio" name="paymode" ${paymentMode.includes('qr')?'checked':''} onclick="setPaymentMode('qr')"> QR Code</label><label class="flex items-center gap-2 border p-3 rounded-lg"><input type="radio" name="paymode" ${paymentMode.includes('bank')?'checked':''} onclick="setPaymentMode('bank')"> Bank Transfer</label></div></div>${payDetailHTML}<div class="card p-4 mb-3 border-2" style="border-color:${config.design.primary}"><div class="text-white inline-block px-3 py-1 rounded-full text-[11px] font-bold" style="background:${config.design.primary}">${config.paySkip}</div><p class="mt-3 font-medium text-sm">How much paying now?</p><input id="amountPaidInput" type="number" value="${amountPaid}" oninput="updateAmountPaid(this.value)" class="w-full border-b py-2 outline-none text-sm"><div class="mt-4 space-y-1 text-sm"><div class="flex justify-between"><span>Total</span><span class="font-bold">${fmt(total)}</span></div><div class="flex justify-between"><span>Paid</span><span id="paidDisplay">₹${amountPaid}</span></div><div class="flex justify-between font-bold"><span>Due</span><span id="dueDisplay" class="text-red-600">₹${total-amountPaid}</span></div></div></div><div class="flex justify-between"><button onclick="showView('booking')" class="border px-6 py-3 rounded-lg text-sm">Back</button><button onclick="submitBooking()" class="px-8 py-3 rounded-lg font-bold text-sm text-white" style="background:${config.design.primary}">${config.buttons.submit}</button></div>`;
+}
+function setPaymentMode(m){if(selectedPackage==='private') privateState.payment=m; else if(selectedPackage==='shared') sharedState.payment=m; else campingState.payment=m; renderPaymentPage();}
+function updateAmountPaid(v){v=parseInt(v)||0; if(selectedPackage==='private') privateState.amountPaid=v; else if(selectedPackage==='shared') sharedState.amountPaid=v; else campingState.amountPaid=v; document.getElementById('paidDisplay').textContent='₹'+v; let total=selectedPackage==='private'?calcPrivate():selectedPackage==='shared'?calcShared():calcCamp(); document.getElementById('dueDisplay').textContent='₹'+(total-v);}
+function submitBooking(){let total=selectedPackage==='private'?calcPrivate():selectedPackage==='shared'?calcShared():calcCamp(); let paid=selectedPackage==='private'?privateState.amountPaid:selectedPackage==='shared'?sharedState.amountPaid:campingState.amountPaid; if(selectedPackage==='shared'&&(paid<config.prices.advance||paid>total)){toast(`Amount must be between ₹${config.prices.advance} and ₹${total}`); return;} let bookings=JSON.parse(localStorage.getItem('chympe_bookings')||'[]'); let data=selectedPackage==='private'?{...privateState,type:'Private+Camping',total,date:new Date().toISOString()}:selectedPackage==='shared'?{...sharedState,type:'Shared',total,date:new Date().toISOString()}:{...campingState,type:'Camping Only',total,date:new Date().toISOString()}; bookings.push(data); localStorage.setItem('chympe_bookings',JSON.stringify(bookings)); renderThankyou(total,paid); showView('thankyou');}
+function renderThankyou(total,paid){let c=document.getElementById('thankyouContainer'); let name=selectedPackage==='private'?privateState.fullName:selectedPackage==='shared'?sharedState.fullName:campingState.fullName; let msg=`New Booking - ${selectedPackage.toUpperCase()}%0AName: ${name}%0ATotal: ${fmt(total)}%0APaid: ₹${paid} Due: ₹${total-paid}%0AUPI: ${config.upi}`; c.innerHTML=`<div class="card p-8 text-center" style="border-top:8px solid ${config.design.primary}"><h3 class="text-[22px]">Thank you!</h3><p class="mt-4 text-[13px]">Booking pending until payment verified<br>Send screenshot to WhatsApp to confirm</p><div class="bg-[#F3EFFC] p-3 rounded-lg mt-4 text-xs text-left"><div class="flex justify-between"><span>Total</span><span class="font-bold">${fmt(total)}</span></div><div class="flex justify-between"><span>Paid</span><span>₹${paid}</span></div><div class="flex justify-between font-bold"><span>Due</span><span class="text-red-600">₹${total-paid}</span></div></div><a href="https://wa.me/${config.whatsapp}?text=${msg}" target="_blank" class="bg-[#25D366] text-white w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-lg font-bold mt-6 text-[14px]">${config.buttons.wa}</a></div>`;}
+
+// ADMIN
+let tapCount=0;
+document.getElementById('footerText').addEventListener('click',()=>{tapCount++; if(tapCount>=7){openAdmin(); tapCount=0;}});
+function openAdmin(){document.getElementById('adminOverlay').classList.remove('hidden'); document.getElementById('godModeIndicator').classList.remove('hidden');}
+function closeAdmin(){document.getElementById('adminOverlay').classList.add('hidden');}
+if(window.location.hash==='#admin') openAdmin();
+window.addEventListener('hashchange',()=>{if(location.hash==='#admin') openAdmin();});
+document.getElementById('menuBtn').onclick=()=>document.getElementById('mobileMenu').classList.toggle('hidden');
+function loginAdmin(){let p=document.getElementById('adminPass').value; if(p===config.adminPass){document.getElementById('adminLogin').classList.add('hidden'); document.getElementById('adminPanel').classList.remove('hidden'); loadAdmin();} else toast('Wrong password');}
+function loadAdmin(){
+  document.getElementById('a_logoText').value=config.logoText||'KC';
+  if(config.logo){document.getElementById('logoPreview').src=config.logo; document.getElementById('logoPreview').classList.remove('hidden');}
+  document.getElementById('a_pageTitle').value=config.pageTitle;
+  document.getElementById('a_notice').value=config.notice;
+  document.getElementById('a_headerTitle').value=config.headerTitle;
+  document.getElementById('a_headerSub').value=config.headerSub;
+  document.getElementById('a_heroBadge').value=config.heroBadge;
+  document.getElementById('a_heroTitle').value=config.heroTitle;
+  document.getElementById('a_heroSub').value=config.heroSub;
+  document.getElementById('a_heroHint').value=config.heroHint;
+  document.getElementById('a_galleryTitle').value=config.galleryTitle;
+  document.getElementById('a_footer').value=config.footer;
+  document.getElementById('a_whatsapp').value=config.whatsapp;
+  document.getElementById('a_bookingLabel').value=config.bookingLabel;
+  document.getElementById('a_jeep').value=config.prices.jeep;
+  document.getElementById('a_guide').value=config.prices.guide;
+  document.getElementById('a_adventure').value=config.prices.adventure;
+  document.getElementById('a_lunch').value=config.prices.lunch;
+  document.getElementById('a_tent').value=config.prices.tent;
+  document.getElementById('a_cMeal').value=config.prices.cMeal;
+  document.getElementById('a_overnight').value=config.prices.overnight;
+  document.getElementById('a_shared').value=config.prices.shared;
+  document.getElementById('a_advance').value=config.prices.advance;
+  document.getElementById('a_campingBase').value=config.prices.campingBase;
+  document.getElementById('a_upi').value=config.upi;
+  document.getElementById('a_holder').value=config.bank.holder;
+  document.getElementById('a_acc').value=config.bank.acc;
+  document.getElementById('a_ifsc').value=config.bank.ifsc;
+  document.getElementById('a_bankName').value=config.bank.bankName;
+  document.getElementById('a_qr').value=config.qr;
+  document.getElementById('qrPreview').src=config.qr;
+  document.getElementById('a_primary').value=config.design.primary;
+  document.getElementById('a_primaryText').value=config.design.primary;
+  document.getElementById('a_noticeBg').value=config.design.noticeBg;
+  document.getElementById('a_noticeBgText').value=config.design.noticeBg;
+  document.getElementById('a_heroFrom').value=config.hero.from;
+  document.getElementById('a_heroVia').value=config.hero.via;
+  document.getElementById('a_heroTo').value=config.hero.to;
+  document.getElementById('a_formBg').value=config.design.formBg;
+  document.getElementById('a_customCSS').value=config.design.customCSS||'';
+  document.getElementById('a_adminPass').value=config.adminPass;
+  document.getElementById('a_waBtn').value=config.buttons.wa;
+  document.getElementById('a_nextBtn').value=config.buttons.next;
+  document.getElementById('a_submitBtn').value=config.buttons.submit;
+  document.getElementById('a_backBtn').value=config.buttons.back;
+  document.getElementById('a_footerHTML').value=config.footer;
+  renderSectionsAdmin(); renderButtonsAdmin(); renderPackagesAdmin(); renderBambooAdmin(); renderGalleryAdmin(); renderBookingsAdmin();
+}
+function switchTab(tab){document.querySelectorAll('.adminTab').forEach(el=>el.classList.add('hidden')); document.getElementById('tab-'+tab).classList.remove('hidden'); document.querySelectorAll('.tabBtn').forEach(b=>{b.classList.remove('bg-black','text-white','bg-gradient-to-r','from-purple-600','to-pink-600'); b.classList.add('bg-gray-200');}); if(event) event.target.classList.add('bg-black','text-white'); if(tab==='magic') event.target.classList.add('bg-gradient-to-r','from-purple-600','to-pink-600','text-white');}
+
+// Sections admin with images
+function renderSectionsAdmin(){
+  let html='';
+  config.sections.forEach((s,i)=>{
+    html+=`<div class="border-2 p-3 rounded-lg text-xs bg-white">
+      <div class="flex justify-between items-center">
+        <div class="flex items-center gap-1"><span>☰</span><button onclick="moveSection(${i}, -1)" class="bg-gray-200 px-1 rounded">↑</button><button onclick="moveSection(${i}, 1)" class="bg-gray-200 px-1 rounded">↓</button></div>
+        <div class="flex gap-1"><button onclick="config.sections[${i}].visible=!config.sections[${i}].visible; renderSectionsAdmin(); renderSite()" class="px-2 py-1 rounded ${s.visible!==false?'bg-green-500 text-white':'bg-gray-300'}">${s.visible!==false?'👁️':'🚫'}</button><button onclick="config.sections[${i}].highlight=!config.sections[${i}].highlight; renderSectionsAdmin(); renderSite()" class="px-2 py-1 rounded ${s.highlight?'bg-yellow-400':'bg-gray-200'}">⭐</button><button onclick="config.sections.splice(${i},1); renderSectionsAdmin(); renderSite()" class="bg-red-500 text-white px-2 rounded">X</button></div>
+      </div>
+      <input value="${s.title}" onchange="config.sections[${i}].title=this.value; renderSite()" class="border p-2 rounded w-full mt-2 font-bold" placeholder="Title">
+      <textarea onchange="config.sections[${i}].content=this.value; renderSite()" class="border w-full p-2 rounded mt-1 h-16">${s.content||''}</textarea>
+      <div class="grid grid-cols-2 gap-2 mt-2">
+        <div><label class="text-[10px]">BG Color</label><input type="color" value="${s.bgColor||'#ffffff'}" onchange="config.sections[${i}].bgColor=this.value; renderSite()" class="w-full h-8"></div>
+        <div><label class="text-[10px]">Text Color</label><input type="color" value="${s.textColor||'#000000'}" onchange="config.sections[${i}].textColor=this.value; renderSite()" class="w-full h-8"></div>
+      </div>
+      <div class="mt-2"><label class="text-[10px] font-bold">BG Image:</label><div class="flex gap-1"><input type="file" id="secBgFile_${i}" accept="image/*" class="border p-1 rounded flex-1 text-[10px] bg-white"><button onclick="uploadSectionBg(${i})" class="bg-green-600 text-white px-2 py-1 rounded text-[10px]">Upload BG</button>${s.bgImage?`<button onclick="config.sections[${i}].bgImage=''; renderSectionsAdmin(); renderSite()" class="bg-red-500 text-white px-1 rounded text-[10px]">Remove</button>`:''}</div>${s.bgImage?`<img src="${s.bgImage}" class="w-full h-20 object-cover rounded mt-1">`:''}</div>
+      <div class="mt-2"><label class="text-[10px] font-bold">Images Inside:</label><div class="flex gap-1"><input type="file" id="secImgFile_${i}" accept="image/*" multiple class="border p-1 rounded flex-1 text-[10px] bg-white"><button onclick="uploadSectionImages(${i})" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px]">+ Add</button></div><div class="flex gap-1 mt-1 flex-wrap">${(s.images||[]).map((img, imgIdx)=>`<div class="relative"><img src="${img}" class="w-12 h-12 object-cover rounded border"><button onclick="config.sections[${i}].images.splice(${imgIdx},1); renderSectionsAdmin(); renderSite()" class="absolute -top-1 -right-1 bg-red-500 text-white w-4 h-4 rounded-full text-[8px]">X</button></div>`).join('')}</div></div>
+    </div>`;
+  });
+  document.getElementById('sectionsAdmin').innerHTML=html;
+}
+function moveSection(idx, dir){let newIdx=idx+dir; if(newIdx<0||newIdx>=config.sections.length) return; let t=config.sections[idx]; config.sections[idx]=config.sections[newIdx]; config.sections[newIdx]=t; renderSectionsAdmin(); renderSite();}
+function uploadSectionBg(i){let f=document.getElementById('secBgFile_'+i).files[0]; if(!f){toast('Select image'); return;} let r=new FileReader(); r.onload=e=>{config.sections[i].bgImage=e.target.result; renderSectionsAdmin(); renderSite(); toast('BG added');}; r.readAsDataURL(f);}
+function uploadSectionImages(i){let fs=document.getElementById('secImgFile_'+i).files; if(!fs||fs.length===0){toast('Select images'); return;} if(!config.sections[i].images) config.sections[i].images=[]; Array.from(fs).forEach(file=>{let r=new FileReader(); r.onload=e=>{config.sections[i].images.push(e.target.result); renderSectionsAdmin(); renderSite();}; r.readAsDataURL(file);});}
+function addSection(){config.sections.push({id:'sec_'+Date.now(), title:'New Section', content:'Edit this content', visible:true, highlight:false, bgImage:"", bgColor:"", textColor:"", images:[]}); renderSectionsAdmin();}
+
+function renderButtonsAdmin(){let html=''; config.packages.forEach((b,i)=>{html+=`<div class="border p-2 rounded text-xs"><div class="flex gap-2"><input value="${b.badge}" onchange="config.packages[${i}].badge=this.value; renderSite()" class="border p-1 rounded w-20"><input value="${b.name}" onchange="config.packages[${i}].name=this.value; renderSite()" class="border p-1 rounded flex-1"><input value="${b.btn}" onchange="config.packages[${i}].btn=this.value; renderSite()" class="border p-1 rounded w-24"></div><div class="flex gap-2 mt-1"><input value="${b.desc}" onchange="config.packages[${i}].desc=this.value; renderSite()" class="border p-1 rounded flex-1"><input type="color" value="${b.color.startsWith('#')?b.color:'#5B3EE0'}" onchange="config.packages[${i}].color=this.value; renderSite()" class="w-8 h-8"><button onclick="config.packages[${i}].visible=!config.packages[${i}].visible; renderButtonsAdmin(); renderSite()" class="px-2 py-1 rounded ${b.visible!==false?'bg-green-500 text-white':'bg-gray-300'}">${b.visible!==false?'👁️':'🚫'}</button><button onclick="config.packages[${i}].highlight=!config.packages[${i}].highlight; renderButtonsAdmin(); renderSite()" class="px-2 py-1 rounded ${b.highlight?'bg-yellow-400':'bg-gray-200'}">⭐</button></div></div>`}); document.getElementById('buttonsAdmin').innerHTML=html;}
+function addButtonConfig(){config.packages.push({id:'pkg_'+Date.now(), name:'New Package', badge:'NEW', desc:'New package', btn:'Book Now →', color:'#5B3EE0', textColor:'white', visible:true, highlight:false, order:config.packages.length+1}); renderButtonsAdmin(); renderPackagesAdmin();}
+function renderPackagesAdmin(){let html=''; config.packages.forEach((p,i)=>{html+=`<div class="border p-2 rounded text-xs"><div class="font-bold">Package ${i+1}: ${p.id}</div><input value="${p.id}" onchange="config.packages[${i}].id=this.value" class="border p-1 rounded w-full mt-1" placeholder="ID"></div>`}); document.getElementById('packagesAdmin').innerHTML=html;}
+function addPackage(){addButtonConfig();}
+function renderBambooAdmin(){let html=''; config.bamboo.forEach((b,i)=>{html+=`<div class="flex gap-2 mb-2 items-center text-xs"><input value="${b.name}" onchange="config.bamboo[${i}].name=this.value" class="border p-1 rounded flex-1"><input type="number" value="${b.price}" onchange="config.bamboo[${i}].price=parseInt(this.value)||0" class="border p-1 rounded w-16"><button onclick="config.bamboo[${i}].visible=!config.bamboo[${i}].visible; renderBambooAdmin()" class="px-1 rounded ${b.visible!==false?'bg-green-500 text-white':'bg-gray-300'}">👁️</button><button onclick="config.bamboo.splice(${i},1); renderBambooAdmin()" class="bg-red-500 text-white px-1 rounded">X</button></div>`}); document.getElementById('bambooAdmin').innerHTML=html;}
+function addBamboo(){config.bamboo.push({name:"New Dish", price:300, visible:true, highlight:false}); renderBambooAdmin();}
+function renderGalleryAdmin(){let html=''; config.gallery.forEach((url,i)=>{html+=`<div class="flex gap-2 mb-2 items-center"><img src="${url}" class="w-10 h-10 object-cover rounded"><input value="${url}" onchange="config.gallery[${i}]=this.value" class="border p-1 rounded flex-1 text-[11px]"><button onclick="config.gallery.splice(${i},1); renderGalleryAdmin(); renderSite()" class="bg-red-500 text-white px-2 rounded text-xs">X</button></div>`}); document.getElementById('galleryAdmin').innerHTML=html;}
+function addGallery(){let url=document.getElementById('newGalUrl').value.trim(); if(url){config.gallery.push(url); document.getElementById('newGalUrl').value=''; renderGalleryAdmin(); renderSite(); toast('URL Added');}}
+function handleGalleryUpload(){let files=document.getElementById('galleryFiles').files; if(!files||files.length===0){toast('Select photos'); return;} Array.from(files).forEach(file=>{let r=new FileReader(); r.onload=e=>{config.gallery.push(e.target.result); renderGalleryAdmin(); renderSite();}; r.readAsDataURL(file);});}
+function renderBookingsAdmin(){let bookings=JSON.parse(localStorage.getItem('chympe_bookings')||'[]'); if(bookings.length===0) document.getElementById('bookingsList').innerHTML='No bookings yet'; else {let html='<div class="space-y-2 max-h-80 overflow-y-auto">'; bookings.forEach((b,i)=>{html+=`<div class="border p-2 rounded"><b>${b.type}</b> - ${b.fullName} - ${fmt(b.total)} - ${b.tourDate||''} <button onclick="let bs=JSON.parse(localStorage.getItem('chympe_bookings')); bs.splice(${i},1); localStorage.setItem('chympe_bookings', JSON.stringify(bs)); renderBookingsAdmin()" class="text-red-500 ml-2">Delete</button></div>`}); html+='</div>'; document.getElementById('bookingsList').innerHTML=html;}}
+function clearBookings(){if(confirm('Clear all?')){localStorage.removeItem('chympe_bookings'); renderBookingsAdmin();}}
+function exportBookings(){let bookings=JSON.parse(localStorage.getItem('chympe_bookings')||'[]'); let csv="Type,Name,Persons,Total,Date\n"; bookings.forEach(b=>{csv+=`"${b.type}","${b.fullName}",${b.persons},${b.total},"${b.date}"\n`;}); let blob=new Blob([csv],{type:'text/csv'}); let a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='bookings.csv'; a.click();}
+function saveAdmin(){
+  config.pageTitle=document.getElementById('a_pageTitle').value;
+  config.notice=document.getElementById('a_notice').value;
+  config.headerTitle=document.getElementById('a_headerTitle').value;
+  config.headerSub=document.getElementById('a_headerSub').value;
+  config.heroBadge=document.getElementById('a_heroBadge').value;
+  config.heroTitle=document.getElementById('a_heroTitle').value;
+  config.heroSub=document.getElementById('a_heroSub').value;
+  config.heroHint=document.getElementById('a_heroHint').value;
+  config.galleryTitle=document.getElementById('a_galleryTitle').value;
+  config.footer=document.getElementById('a_footerHTML').value;
+  config.whatsapp=document.getElementById('a_whatsapp').value;
+  config.bookingLabel=document.getElementById('a_bookingLabel').value;
+  config.prices.jeep=parseInt(document.getElementById('a_jeep').value)||0;
+  config.prices.guide=parseInt(document.getElementById('a_guide').value)||0;
+  config.prices.adventure=parseInt(document.getElementById('a_adventure').value)||0;
+  config.prices.lunch=parseInt(document.getElementById('a_lunch').value)||0;
+  config.prices.tent=parseInt(document.getElementById('a_tent').value)||0;
+  config.prices.cMeal=parseInt(document.getElementById('a_cMeal').value)||0;
+  config.prices.overnight=parseInt(document.getElementById('a_overnight').value)||0;
+  config.prices.shared=parseInt(document.getElementById('a_shared').value)||0;
+  config.prices.advance=parseInt(document.getElementById('a_advance').value)||0;
+  config.prices.campingBase=parseInt(document.getElementById('a_campingBase').value)||0;
+  config.upi=document.getElementById('a_upi').value;
+  config.bank.holder=document.getElementById('a_holder').value;
+  config.bank.acc=document.getElementById('a_acc').value;
+  config.bank.ifsc=document.getElementById('a_ifsc').value;
+  config.bank.bankName=document.getElementById('a_bankName').value;
+  config.qr=document.getElementById('a_qr').value;
+  config.design.primary=document.getElementById('a_primaryText').value||document.getElementById('a_primary').value;
+  config.design.noticeBg=document.getElementById('a_noticeBgText').value||document.getElementById('a_noticeBg').value;
+  config.hero.from=document.getElementById('a_heroFrom').value;
+  config.hero.via=document.getElementById('a_heroVia').value;
+  config.hero.to=document.getElementById('a_heroTo').value;
+  config.design.formBg=document.getElementById('a_formBg').value;
+  config.design.customCSS=document.getElementById('a_customCSS').value;
+  config.adminPass=document.getElementById('a_adminPass').value;
+  config.buttons.wa=document.getElementById('a_waBtn').value;
+  config.buttons.next=document.getElementById('a_nextBtn').value;
+  config.buttons.submit=document.getElementById('a_submitBtn').value;
+  config.buttons.back=document.getElementById('a_backBtn').value;
+  config.logoText=document.getElementById('a_logoText').value;
+  saveConfig(); renderSite(); toast('ULTIMATE GOD MODE Saved!'); closeAdmin();
+}
+function resetConfig(){if(confirm('Reset?')){localStorage.removeItem('chympe_god_v2'); location.reload();}}
+function exportConfig(){let blob=new Blob([JSON.stringify(config,null,2)],{type:'application/json'}); let a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='chympe_config.json'; a.click();}
+document.getElementById('qrFile')?.addEventListener('change', e=>{let file=e.target.files[0]; if(!file) return; let r=new FileReader(); r.onload=ev=>{config.qr=ev.target.result; document.getElementById('a_qr').value=ev.target.result; document.getElementById('qrPreview').src=ev.target.result; toast('QR uploaded');}; r.readAsDataURL(file);});
+document.getElementById('importFile')?.addEventListener('change', e=>{let file=e.target.files[0]; if(!file) return; let r=new FileReader(); r.onload=ev=>{try{config=JSON.parse(ev.target.result); saveConfig(); toast('Imported! Reloading...'); setTimeout(()=>location.reload(),1000);}catch(err){toast('Invalid JSON');}}; r.readAsText(file);});
+document.getElementById('a_primary')?.addEventListener('input', e=>{document.getElementById('a_primaryText').value=e.target.value;});
+document.getElementById('a_noticeBg')?.addEventListener('input', e=>{document.getElementById('a_noticeBgText').value=e.target.value;});
+
+// LOGO
+function handleLogoUpload(){let file=document.getElementById('logoFile').files[0]; if(!file){toast('Select logo'); return;} let r=new FileReader(); r.onload=e=>{config.logo=e.target.result; document.getElementById('logoPreview').src=e.target.result; document.getElementById('logoPreview').classList.remove('hidden'); renderSite(); toast('Logo added - Save');}; r.readAsDataURL(file);}
+function removeLogo(){config.logo=''; document.getElementById('logoPreview').classList.add('hidden'); document.getElementById('logoFile').value=''; renderSite(); toast('Logo removed');}
+function uploadHeroBg(){let file=document.getElementById('heroBgFile').files[0]; if(!file){toast('Select image'); return;} let r=new FileReader(); r.onload=e=>{config.heroBgImage=e.target.result; renderSite(); toast('Hero BG set');}; r.readAsDataURL(file);}
+function uploadBodyBg(){let file=document.getElementById('bodyBgFile').files[0]; if(!file){toast('Select image'); return;} let r=new FileReader(); r.onload=e=>{config.bodyBgImage=e.target.result; renderSite(); toast('Body BG set');}; r.readAsDataURL(file);}
+
+// MAGIC FEATURES
+let magicImageData=null; let magicImageBase64=null;
+document.getElementById('magicDesignFile')?.addEventListener('change', function(e){
+  let file=e.target.files[0]; if(!file) return;
+  let reader=new FileReader();
+  reader.onload=function(ev){
+    magicImageBase64=ev.target.result;
+    let img=document.getElementById('magicPreview');
+    img.src=magicImageBase64; img.classList.remove('hidden');
+    document.getElementById('magicActions').classList.remove('hidden');
+    extractColorsFromImage(magicImageBase64);
+    toast('Image uploaded! Colors extracted');
+  };
+  reader.readAsDataURL(file);
+});
+function extractColorsFromImage(base64){
+  let img=new Image();
+  img.onload=function(){
+    let canvas=document.getElementById('magicCanvas');
+    let ctx=canvas.getContext('2d');
+    canvas.width=100; canvas.height=100;
+    ctx.drawImage(img,0,0,100,100);
+    let data=ctx.getImageData(0,0,100,100).data;
+    let r=0,g=0,b=0,count=0; let colors={};
+    for(let i=0;i<data.length;i+=40){
+      let rr=data[i], gg=data[i+1], bb=data[i+2];
+      if(rr>200&&gg>200&&bb>200) continue;
+      if(rr<30&&gg<30&&bb<30) continue;
+      r+=rr; g+=gg; b+=bb; count++;
+      let key=Math.floor(rr/20)*20+','+Math.floor(gg/20)*20+','+Math.floor(bb/20)*20;
+      colors[key]=(colors[key]||0)+1;
+    }
+    r=Math.floor(r/count)||94; g=Math.floor(g/count)||53; b=Math.floor(b/count)||177;
+    let avgColor='#'+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1);
+    let sorted=Object.entries(colors).sort((a,b)=>b[1]-a[1]).slice(0,3);
+    let c1=sorted[0]? 'rgb('+sorted[0][0]+')' : avgColor;
+    let c2=sorted[1]? 'rgb('+sorted[1][0]+')' : '#1E1A3C';
+    let c3=sorted[2]? 'rgb('+sorted[2][0]+')' : '#121212';
+    function rgbToHex(rgb){if(rgb.startsWith('#')) return rgb; let m=rgb.match(/\\d+/g); if(!m) return '#5B3EE0'; return '#'+((1<<24)+(parseInt(m[0])<<16)+(parseInt(m[1])<<8)+parseInt(m[2])).toString(16).slice(1);}
+    let hex1=rgbToHex(c1), hex2=rgbToHex(c2), hex3=rgbToHex(c3);
+    magicImageData={primary:hex1, notice:hex1, heroFrom:hex3, heroVia:hex2, heroTo:hex1, avg:avgColor};
+    let paletteHTML=`<div class="text-[10px]">Extracted:</div>`;
+    [hex1,hex2,hex3,avgColor].forEach(h=>{paletteHTML+=`<div class="w-6 h-6 rounded-full border" style="background:${h}" title="${h}"></div>`;});
+    document.getElementById('magicColors').innerHTML=paletteHTML;
+  };
+  img.src=base64;
+}
+function applyAllMagicColors(){
+  if(!magicImageData){toast('Upload image first'); return;}
+  config.design.primary=magicImageData.primary;
+  config.design.noticeBg=magicImageData.notice;
+  config.hero.from=magicImageData.heroFrom;
+  config.hero.via=magicImageData.heroVia;
+  config.hero.to=magicImageData.heroTo;
+  renderSite(); toast('All colors applied!');
+}
+function applyMagicLayout(layout){
+  let pkgCont=document.getElementById('packageButtons');
+  if(!pkgCont) return;
+  if(layout==='default'){pkgCont.className='mt-6 grid gap-2 grid-cols-3 md:gap-3'; config.design.customCSS=(config.design.customCSS||'').replace(/\\/\\*LAYOUT.*?\\*\\//g,'');}
+  else if(layout==='stacked'){pkgCont.className='mt-6 grid gap-3 grid-cols-1'; config.design.customCSS+='\\n/*LAYOUT*/ #packageButtons > div{padding:20px !important; border-radius:16px !important}';}
+  else if(layout==='grid2'){pkgCont.className='mt-6 grid gap-3 grid-cols-2';}
+  else if(layout==='full'){pkgCont.className='mt-6 grid gap-3 grid-cols-1 md:grid-cols-3'; if(magicImageBase64){config.design.customCSS+=`\\n/*LAYOUT*/ #heroSection{background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('${magicImageBase64}') !important; background-size: cover !important; background-position: center !important;}`;}}
+  else if(layout==='magazine'){pkgCont.className='mt-6 grid gap-3 grid-cols-1'; config.design.customCSS+='\\n/*LAYOUT*/ #packageButtons > div:first-child{grid-column: span 2; padding: 24px !important} #packageButtons{grid-template-columns: 1fr 1fr}';}
+  else if(layout==='minimal'){pkgCont.className='mt-6 grid gap-2 grid-cols-3'; config.design.customCSS+='\\n/*LAYOUT*/ .card{box-shadow:none !important; border:1px solid #eee !important}';}
+  else if(layout==='card'){pkgCont.className='mt-6 grid gap-3 grid-cols-1 md:grid-cols-3'; config.design.customCSS+='\\n/*LAYOUT*/ #packageButtons > div{border-radius:24px !important; box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important; transform: rotate(-1deg)} #packageButtons > div:nth-child(2){transform: rotate(1deg)}';}
+  else if(layout==='imagefocus'){pkgCont.className='mt-6 grid gap-3 grid-cols-3'; config.design.customCSS+='\\n/*LAYOUT*/ #gallerySection{order: -1}';}
+  renderSite(); document.getElementById('customCSSHolder').innerHTML=`<style>${config.design.customCSS||''}</style>`; toast('Layout rearranged!');
+}
+function useAsHeroBg(){if(!magicImageBase64){toast('Upload image first'); return;} config.heroBgImage=magicImageBase64; renderSite(); toast('Hero BG set!');}
+function autoRearrange(){
+  if(!magicImageBase64){toast('Upload a design image first!'); return;}
+  applyAllMagicColors();
+  let layouts=['stacked','grid2','full','magazine','card','minimal'];
+  let layout=layouts[Math.floor(Math.random()*layouts.length)];
+  setTimeout(()=>applyMagicLayout(layout), 500);
+  if(config.sections.length>1){config.sections.sort(()=>Math.random()-0.5);}
+  config.packages.forEach((p,i)=>{p.highlight=i===0;});
+  setTimeout(()=>{renderSite(); document.getElementById('customCSSHolder').innerHTML=`<style>${config.design.customCSS||''}</style>`; toast('🪄 Website auto-rearranged like your image! Save!');}, 800);
+}
+function applySeasonal(season){
+  if(season==='monsoon'){config.design.primary='#2563eb'; config.design.noticeBg='#1e40af'; config.hero.from='#0f172a'; config.hero.via='#1e3a8a'; config.hero.to='#3b82f6'; config.notice='🌧️ Monsoon Magic: Cave in full flow! Waterfalls at peak! Book now!';}
+  else if(season==='winter'){config.design.primary='#0f766e'; config.design.noticeBg='#134e4a'; config.hero.from='#042f2e'; config.hero.via='#115e59'; config.hero.to='#14b8a6'; config.notice='❄️ Winter Special: Crystal clear cave water! Best time to visit!';}
+  else if(season==='festival'){config.design.primary='#ea580c'; config.design.noticeBg='#9a3412'; config.hero.from='#431407'; config.hero.via='#c2410c'; config.hero.to='#fb923c'; config.notice='🎉 Festival Offer: Special discount! Group booking 20% off!';}
+  else if(season==='night'){config.design.primary='#000000'; config.design.noticeBg='#000000'; config.hero.from='#000000'; config.hero.via='#1f1f1f'; config.hero.to='#333333'; config.notice='🌙 Night Camping Special: Starry nights at Krem Chympe!';}
+  renderSite(); toast('Seasonal theme applied - '+season);
+}
+function applyFont(font){
+  config.design.font=font; renderSite(); toast('Font changed to '+font);
+}
+function toggleAnimations(){
+  config.design.animations=!config.design.animations; renderSite(); toast(config.design.animations?'Animations ON':'Animations OFF');
+}
+function magicRewrite(){
+  let titles=[
+    "Krem Chympe Cave - Meghalaya's Underground Wonder Awaits!",
+    "Descend into Mystery - Krem Chympe & Khaddum Falls",
+    "Where Water Meets Darkness - Ultimate Cave Adventure",
+    "Brishyrnot's Secret - River Cave & Waterfall Trek",
+    "Trek, Raft, Crawl, Camp - Krem Chympe Expedition"
+  ];
+  config.heroTitle=titles[Math.floor(Math.random()*titles.length)];
+  renderSite(); toast('Hero title rewritten - Magic!');
+}
+function applyPreset(preset){
+  if(preset==='adventure'){config.design.primary='#dc2626'; config.design.customCSS='\\n/*LAYOUT*/ .card{border-left: 4px solid #dc2626} #packageButtons > div{font-weight:800; text-transform: uppercase}';}
+  else if(preset==='luxury'){config.design.primary='#000000'; config.design.customCSS='\\n/*LAYOUT*/ .card{border-radius: 0 !important; box-shadow: 0 20px 40px rgba(0,0,0,0.2) !important} .jakarta{letter-spacing: 2px !important}';}
+  else if(preset==='minimal'){config.design.primary='#6b7280'; config.design.customCSS='\\n/*LAYOUT*/ .card{box-shadow: none !important; border: 1px solid #e5e7eb !important} #heroSection{border-radius: 0 !important}';}
+  renderSite(); document.getElementById('customCSSHolder').innerHTML=`<style>${config.design.customCSS||''}</style>`; toast('Preset applied - '+preset);
+}
+
+renderSite();
+</script>
+</body>
+</html>
