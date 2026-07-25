@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Krem Chympe Explora - Brishyrnot | 3 Packages</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*{font-family:'Inter',sans-serif}.jakarta{font-family:'Plus Jakarta Sans',sans-serif}
+.card{border-radius:14px;box-shadow:0 1px 3px rgba(45,25,110,.12),0 1px 2px rgba(45,25,110,.08);background:#fff}
+.purple-top{border-top:8px solid #5B3EE0}
+.bg-lav{background:#F3EFFC}
+.btn-purple{background:#5B3EE0;color:#fff}.btn-purple:hover{background:#4527A0}
+.counter-btn{width:32px;height:32px;border:1.5px solid #5B3EE0;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#EFEAFB;color:#4527A0;font-weight:700;cursor:pointer}
+.toast{position:fixed;top:20px;right:20px;background:#121212;color:#fff;padding:12px 20px;border-radius:10px;z-index:9999;transform:translateX(200%);transition:transform .3s}.toast.show{transform:translateX(0)}
+.view{display:none}.view.active{display:block}
+</style>
+</head>
+<body class="bg-[#F8F7FF]">
+<div id="toast" class="toast"></div>
+<div id="noticeBanner" class="bg-[#5B3EE0] text-white text-center py-2 px-4 text-[13px] font-medium sticky top-0 z-50"></div>
+<header class="bg-white shadow-sm sticky top-[28px] z-40">
+<div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+<div class="flex items-center gap-3"><div class="w-10 h-10 bg-[#5B3EE0] rounded-xl flex items-center justify-center text-white font-bold">KC</div><div><h1 class="jakarta font-extrabold leading-none text-[14px]">KREM CHYMPE EXPLORA</h1><p class="text-[10px] text-gray-500">Brishyrnot • East Jaintia Hills • Homestay</p></div></div>
+<div class="flex gap-2"><a id="waHeader" href="https://wa.me/916001877518" target="_blank" class="bg-[#25D366] text-white px-4 py-2 rounded-full text-xs font-bold">WhatsApp 6001877518</a><button id="menuBtn" class="md:hidden">☰</button></div>
+</div>
+<div id="mobileMenu" class="hidden bg-white border-t px-4 py-3 flex flex-col gap-2 text-sm">
+<a href="#" onclick="showView('home')">Home</a>
+<a href="#" onclick="selectPackage('camping')">Camping Package</a>
+<a href="#" onclick="selectPackage('private')">Private Package</a>
+<a href="#" onclick="selectPackage('shared')">Shared Package</a>
+<a href="#admin">Admin</a>
+</div>
+</header>
+
+<main class="max-w-[640px] md:max-w-3xl mx-auto px-4 py-6">
+
+<!-- VIEW 1: HOME -->
+<div id="view-home" class="view active">
+<div class="bg-gradient-to-br from-[#121212] via-[#1E1A3C] to-[#5B3EE0] rounded-[24px] p-6 md:p-8 text-white">
+<span class="bg-white/10 border border-white/20 px-3 py-1 rounded-full text-[11px]">📍 Brishyrnot Village, East Jaintia Hills, Meghalaya • Homestay Available</span>
+<h2 id="heroTitle" class="jakarta text-[26px] md:text-4xl font-extrabold mt-4 leading-tight"></h2>
+<p id="heroSub" class="mt-3 text-white/70 text-[13px] leading-5"></p>
+
+<!-- 3 PACKAGE BUTTONS AT TOP OF FIRST PAGE -->
+<div class="mt-6 grid grid-cols-3 gap-2 md:gap-3">
+<button onclick="selectPackage('camping')" class="bg-gradient-to-br from-orange-400 to-red-500 text-white p-3 md:p-4 rounded-2xl text-left hover:scale-[1.02] transition">
+<div class="text-[10px] bg-black/20 inline-block px-2 py-1 rounded-full">⛺ CAMPING</div>
+<div class="font-bold mt-2 text-[13px] md:text-[15px] leading-tight">Camping Package</div>
+<div class="text-[10px] text-white/80 mt-1 leading-tight">Tent ₹1000 • Meals ₹300 • Guide ₹1000 • Bamboo Dishes</div>
+<div class="text-[11px] font-bold mt-2">Book Camping →</div>
+</button>
+<button onclick="selectPackage('private')" class="bg-white text-black p-3 md:p-4 rounded-2xl text-left hover:scale-[1.02] transition">
+<div class="text-[10px] bg-black/10 inline-block px-2 py-1 rounded-full">PRIVATE</div>
+<div class="font-bold mt-2 text-[13px] md:text-[15px] leading-tight">Private Tour</div>
+<div class="text-[10px] text-gray-600 mt-1 leading-tight">Custom group • Jeep ₹4000 • Guide ₹1500 • Adv ₹1200/p • +Camping</div>
+<div class="text-[11px] font-bold mt-2 text-[#5B3EE0]">Book Private →</div>
+</button>
+<button onclick="selectPackage('shared')" class="bg-[#5B3EE0] border border-white/30 text-white p-3 md:p-4 rounded-2xl text-left hover:scale-[1.02] transition">
+<div class="text-[10px] bg-white/20 inline-block px-2 py-1 rounded-full">SHARED - 8 PPL</div>
+<div class="font-bold mt-2 text-[13px] md:text-[15px] leading-tight">Shared ₹2500/p</div>
+<div class="text-[10px] text-white/70 mt-1 leading-tight">Jeep + Guide + Safety + Entry + Lunch • No Camping</div>
+<div class="text-[11px] font-bold mt-2">Join Shared →</div>
+</button>
+</div>
+<p class="text-[11px] text-white/50 mt-3 text-center">Tap a package above to start booking • WhatsApp: 6001877518</p>
+</div>
+
+<div class="mt-6 grid gap-3">
+<div class="card"><button class="w-full text-left p-4 font-bold text-sm flex justify-between" onclick="toggleCollapse('aboutBody', this)">About - Krem Chympe Fall & Cave <span>▼</span></button><div id="aboutBody" class="px-4 pb-4 text-[13px] text-gray-600 leading-5"><b>Location:</b> Brishyrnot Village, East Jaintia Hills, Meghalaya - Homestay Available<br><b>Destination:</b> Krem Chympe Falls & Krem Chympe Cave<br><b>Activities:</b> Trekking, Bridge Crossing, Sightseeing, Waterfall Exploring, Boat/Bamboo Rafting, Cave Exploration, Overnight Camping<br><b>Facilities:</b> Local Guide, Multi Language Guide, Safety Gear & First Aid Service, 4x4 Vehicle for Off-roading, Life Jacket, Homestay and Local Food<br><br><b>3 Packages:</b><br>1. <b>Camping Package</b> - Tent rental, meals, overnight guide, bamboo dishes (zero oil)<br>2. <b>Private Package</b> - Custom group + camping add-on available<br>3. <b>Shared Package</b> - ₹2500/person, no camping, 8 people batch</div></div>
+<div class="grid md:grid-cols-2 gap-3">
+<div class="card"><button class="w-full text-left p-4 font-bold text-sm flex justify-between" onclick="toggleCollapse('actBody', this)">Activities <span>▼</span></button><div id="actBody" class="px-4 pb-4 grid grid-cols-2 gap-2 text-xs"><span>🥾 Trekking</span><span>🌉 Bridge Crossing</span><span>👀 Sightseeing</span><span>💦 Waterfall</span><span>🛶 Bamboo Rafting</span><span>🕳️ Cave Exploration</span><span>⛺ Camping</span><span>🧗 Cliff Jump Khaddum</span></div></div>
+<div class="card"><button class="w-full text-left p-4 font-bold text-sm flex justify-between" onclick="toggleCollapse('facBody', this)">Facilities <span>▼</span></button><div id="facBody" class="px-4 pb-4 grid grid-cols-2 gap-2 text-xs"><span>🧑‍🏫 Local Guide</span><span>🗣️ Multi Language</span><span>🦺 Safety & First Aid</span><span>🚙 4x4 Off-road</span><span>🦺 Life Jacket Torch</span><span>🏠 Homestay</span><span>🍲 Local Food</span><span>📝 Entry Registration</span></div></div>
+</div>
+<div id="gallery" class="card p-4"><button class="w-full text-left font-bold text-sm flex justify-between" onclick="toggleCollapse('galleryGrid', this)">Gallery - Images Editable via Admin <span>▼</span></button><div id="galleryGrid" class="grid grid-cols-2 md:grid-cols-3 gap-2 mt-3"></div></div>
+</div>
+</div>
+
+<!-- VIEW 2: BOOKING FORM ONLY (NO PAYMENT) -->
+<div id="view-booking" class="view">
+<div class="flex items-center gap-2 mb-4"><button onclick="showView('home')" class="border bg-white px-3 py-2 rounded-full text-xs font-bold">← Back to Home</button><span id="bookingPackageLabel" class="text-xs font-bold bg-[#5B3EE0] text-white px-3 py-2 rounded-full"></span></div>
+<div id="bookingFormContainer" class="bg-[#F3EFFC] p-3 rounded-[20px]"></div>
+</div>
+
+<!-- VIEW 3: PAYMENT ONLY (NO CAMPING, NO PACKAGE) -->
+<div id="view-payment" class="view">
+<div class="flex items-center gap-2 mb-4"><button onclick="goBackToBooking()" class="border bg-white px-3 py-2 rounded-full text-xs font-bold">← Back to Booking</button><span class="text-xs font-bold bg-black text-white px-3 py-2 rounded-full">Page 3 - Payment Only</span></div>
+<div id="paymentContainer" class="bg-[#F3EFFC] p-3 rounded-[20px]"></div>
+</div>
+
+<!-- VIEW 4: THANK YOU -->
+<div id="view-thankyou" class="view">
+<div id="thankyouContainer" class="bg-[#F3EFFC] p-3 rounded-[20px]"></div>
+</div>
+
+<footer class="text-center py-10 text-[11px] text-gray-400 border-t mt-10"><p id="footerText"></p><p class="mt-1">Tap 7 times for secret admin • #admin • All buttons work 100%</p></footer>
+</main>
+
+<!-- ADMIN -->
+<div id="adminOverlay" class="fixed inset-0 bg-black/80 z-[999] hidden overflow-y-auto p-4"><div class="max-w-4xl mx-auto bg-white rounded-2xl p-6 my-10">
+<h2 class="text-xl font-bold">Secret Admin - Edit 100% Everything</h2>
+<div id="adminLogin" class="mt-4"><input id="adminPass" type="password" placeholder="Password" class="border p-3 rounded w-full"><button onclick="loginAdmin()" class="btn-purple px-6 py-3 rounded mt-3 w-full font-bold">Login</button><p class="text-xs text-gray-400 mt-1">Default: chympe2024</p></div>
+<div id="adminPanel" class="hidden">
+<div class="flex flex-wrap gap-2 mt-4 mb-4">
+<button onclick="switchTab('site')" class="tabBtn bg-black text-white px-3 py-1 rounded text-xs">Site</button>
+<button onclick="switchTab('prices')" class="tabBtn bg-gray-200 px-3 py-1 rounded text-xs">Prices</button>
+<button onclick="switchTab('payments')" class="tabBtn bg-gray-200 px-3 py-1 rounded text-xs">Payments</button>
+<button onclick="switchTab('bamboo')" class="tabBtn bg-gray-200 px-3 py-1 rounded text-xs">Bamboo Dishes</button>
+<button onclick="switchTab('gallery')" class="tabBtn bg-gray-200 px-3 py-1 rounded text-xs">Gallery</button>
+<button onclick="switchTab('buttons')" class="tabBtn bg-gray-200 px-3 py-1 rounded text-xs">Buttons/Texts</button>
+<button onclick="switchTab('bookings')" class="tabBtn bg-gray-200 px-3 py-1 rounded text-xs">Bookings</button>
+</div>
+<div id="tab-site" class="adminTab"><label class="text-xs font-bold">Notice Banner</label><input id="a_notice" class="border w-full p-2 rounded mb-2 text-sm"><label class="text-xs font-bold">Hero Title</label><input id="a_heroTitle" class="border w-full p-2 rounded mb-2 text-sm"><label class="text-xs font-bold">Hero Subtitle</label><textarea id="a_heroSub" class="border w-full p-2 rounded mb-2 text-sm"></textarea><label class="text-xs font-bold">WhatsApp (91...)</label><input id="a_whatsapp" class="border w-full p-2 rounded mb-2 text-sm"><label class="text-xs font-bold">Footer</label><input id="a_footer" class="border w-full p-2 rounded mb-2 text-sm"><label class="text-xs font-bold">Admin Password</label><input id="a_adminPass" class="border w-full p-2 rounded text-sm"></div>
+<div id="tab-prices" class="adminTab hidden grid grid-cols-2 gap-2"><div><label class="text-xs">Jeep/group</label><input id="a_jeep" type="number" class="border w-full p-2 rounded text-sm"></div><div><label class="text-xs">Guide/group</label><input id="a_guide" type="number" class="border w-full p-2 rounded text-sm"></div><div><label class="text-xs">Adventure/person</label><input id="a_adventure" type="number" class="border w-full p-2 rounded text-sm"></div><div><label class="text-xs">Lunch/person</label><input id="a_lunch" type="number" class="border w-full p-2 rounded text-sm"></div><div><label class="text-xs">Tent/tent</label><input id="a_tent" type="number" class="border w-full p-2 rounded text-sm"></div><div><label class="text-xs">Camp Meal/person</label><input id="a_cMeal" type="number" class="border w-full p-2 rounded text-sm"></div><div><label class="text-xs">Overnight Guide</label><input id="a_overnight" type="number" class="border w-full p-2 rounded text-sm"></div><div><label class="text-xs">Shared/person</label><input id="a_shared" type="number" class="border w-full p-2 rounded text-sm"></div><div><label class="text-xs">Shared Advance</label><input id="a_advance" type="number" class="border w-full p-2 rounded text-sm"></div><div><label class="text-xs">Camping Base Price</label><input id="a_campingBase" type="number" class="border w-full p-2 rounded text-sm"></div></div>
+<div id="tab-payments" class="adminTab hidden"><label class="text-xs font-bold">UPI ID</label><input id="a_upi" class="border w-full p-2 rounded mb-2 text-sm"><label class="text-xs font-bold">Bank Holder</label><input id="a_holder" class="border w-full p-2 rounded mb-2 text-sm"><label class="text-xs font-bold">Account No</label><input id="a_acc" class="border w-full p-2 rounded mb-2 text-sm"><label class="text-xs font-bold">IFSC</label><input id="a_ifsc" class="border w-full p-2 rounded mb-2 text-sm"><label class="text-xs font-bold">Bank Name</label><input id="a_bankName" class="border w-full p-2 rounded mb-2 text-sm"><label class="text-xs font-bold">QR URL</label><input id="a_qr" class="border w-full p-2 rounded mb-2 text-sm"><input type="file" id="qrFile" accept="image/*" class="border w-full p-2 rounded text-sm"><img id="qrPreview" class="w-32 h-32 mt-2 border rounded object-contain"></div>
+<div id="tab-bamboo" class="adminTab hidden"><div id="bambooAdmin" class="space-y-2"></div><button onclick="addBamboo()" class="btn-purple px-4 py-2 rounded mt-3 text-sm">+ Add Bamboo Dish</button></div>
+<div id="tab-gallery" class="adminTab hidden"><div id="galleryAdmin" class="space-y-2"></div><div class="flex gap-2 mt-3"><input id="newGalUrl" placeholder="Image URL" class="border p-2 rounded flex-1 text-sm"><button onclick="addGallery()" class="btn-purple px-4 py-2 rounded text-sm">Add</button></div></div>
+<div id="tab-buttons" class="adminTab hidden"><label class="text-xs font-bold">Private Btn</label><input id="a_privateBtn" class="border w-full p-2 rounded mb-2 text-sm"><label class="text-xs font-bold">Shared Btn</label><input id="a_sharedBtn" class="border w-full p-2 rounded mb-2 text-sm"><label class="text-xs font-bold">Camping Btn</label><input id="a_campingBtn" class="border w-full p-2 rounded mb-2 text-sm"><label class="text-xs font-bold">Next Btn</label><input id="a_nextBtn" class="border w-full p-2 rounded mb-2 text-sm"><label class="text-xs font-bold">Submit Btn</label><input id="a_submitBtn" class="border w-full p-2 rounded mb-2 text-sm"><label class="text-xs font-bold">WhatsApp Btn</label><input id="a_waBtn" class="border w-full p-2 rounded text-sm"></div>
+<div id="tab-bookings" class="adminTab hidden"><div id="bookingsList" class="text-xs max-h-80 overflow-y-auto"></div><button onclick="clearBookings()" class="bg-red-600 text-white px-4 py-2 rounded mt-3 text-sm">Clear All Bookings</button></div>
+<button onclick="saveAdmin()" class="w-full btn-purple py-3 rounded-xl font-bold mt-6">Save & Update Website 100%</button><button onclick="closeAdmin()" class="w-full bg-gray-200 py-3 rounded-xl font-bold mt-3">Close Admin</button><button onclick="exportConfig()" class="w-full border py-2 rounded mt-3 text-xs">Export Config JSON</button>
+</div></div></div>
+
+<script>
+let defaultConfig={
+  notice:"🔥 Monsoon Special: Cave in full flow! Book 3 days advance. Homestay Available - Brishyrnot Village, East Jaintia Hills",
+  whatsapp:"916001877518",
+  upi:"suchiangwining-1@oksbi",
+  bank:{holder:"Wining Suchiang", acc:"1234567890", ifsc:"SBIN0000000", bankName:"State Bank of India - Sohkha Branch"},
+  qr:"https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg",
+  prices:{jeep:4000, guide:1500, adventure:1200, lunch:300, tent:1000, cMeal:300, overnight:1000, shared:2500, advance:500, campingBase:2000},
+  heroTitle:"Krem Chympe Cave & Khaddum Falls Adventure - 3 Packages",
+  heroSub:"Meghalaya's hidden underground river cave in Brishyrnot Village, East Jaintia Hills. Choose from Camping, Private or Shared Package. Trekking, bamboo rafting, cliff jumping, cave exploration & overnight camping. Local guide, safety gear, 4x4 jeep, homestay & local food.",
+  footer:"© Team Chympe Explora Official | Brishyrnot Village, East Jaintia Hills, Meghalaya | WhatsApp: 6001877518 | Krem Chympe Fall & Cave",
+  bamboo:[
+    {name:"Fresh Bamboo Chicken (500g)", price:699},
+    {name:"Fresh Bamboo Chicken (1kg)", price:890},
+    {name:"Fresh Bamboo Pork (500g)", price:799},
+    {name:"Fresh Bamboo Pork (1kg)", price:1000},
+    {name:"Roasted Pork Belly Salad (500g)", price:599},
+    {name:"Roasted Pork Belly Salad (1kg)", price:900},
+    {name:"Boiled Fish (Zero Oil)", price:250},
+    {name:"Veg Bamboo Sabji", price:300},
+    {name:"Boiled Egg", price:20},
+    {name:"Bamboo Chai", price:20}
+  ],
+  gallery:["https://images.unsplash.com/photo-1506905925346-21bda4d32df4","https://images.unsplash.com/photo-1448375240586-882707db888b","https://images.unsplash.com/photo-1527631746610-bca00a040d60","https://images.unsplash.com/photo-1470770841072-f978cf4d019e","https://images.unsplash.com/photo-1501785888041-af3ef285b470","https://images.unsplash.com/photo-1519681393784-d120267933ba"],
+  buttons:{private:"Private Tour - Custom + Camping", shared:"Shared Package ₹2500/p - No Camping", camping:"Camping Package - Tent + Meals + Guide", next:"Next → Payment", submit:"Submit Booking", wa:"📞 Send Payment Screenshot on WhatsApp"},
+  adminPass:"chympe2024"
+};
+let config=JSON.parse(localStorage.getItem('chympe_v5')||'null')||defaultConfig;
+function saveConfig(){localStorage.setItem('chympe_v5', JSON.stringify(config));}
+function toast(m){let t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function copyText(txt, btn){navigator.clipboard.writeText(txt); if(btn){let o=btn.textContent; btn.textContent='Copied!'; setTimeout(()=>btn.textContent=o,1500);} toast('Copied!');}
+function downloadQR(){let a=document.createElement('a');a.href=config.qr;a.download='KremChympe_QR.png';a.target='_blank';a.click(); toast('Downloading QR');}
+function toggleCollapse(id, btn){let el=document.getElementById(id); if(!el) return; if(el.style.display==='none'){el.style.display=''; if(btn) btn.querySelector('span').textContent='▼';} else {el.style.display='none'; if(btn) btn.querySelector('span').textContent='▲';}}
+function fmt(n){return '₹'+Math.round(n).toLocaleString('en-IN');}
+let selectedPackage='private';
+let privateState={fullName:"", wa:"", email:"", persons:1, tourDate:"", jeep:"no", adventure:"yes", veg:0, chicken:0, pork:0, camping:"yes", tents:0, cMeals:"yes", bamboo:{}, payment:"upi", amountPaid:0};
+let sharedState={fullName:"", phone:"", email:"", tourDate:"", persons:1, payment:"UPI", amountPaid:500, camping:"no"};
+let campingState={fullName:"", wa:"", email:"", persons:1, tourDate:"", tents:1, cMeals:"yes", bamboo:{}, payment:"upi", amountPaid:0};
+
+function showView(viewId){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active')); document.getElementById('view-'+viewId).classList.add('active'); window.scrollTo({top:0, behavior:'smooth'});}
+function selectPackage(pkg){selectedPackage=pkg; renderBookingForm(); showView('booking');}
+function goBackToBooking(){showView('booking');}
+
+function calcPrivateTotal(){
+  let total=config.prices.guide;
+  if(privateState.jeep==='yes') total+=config.prices.jeep;
+  if(privateState.adventure==='yes') total+=privateState.persons*config.prices.adventure;
+  total+=(privateState.veg+privateState.chicken+privateState.pork)*config.prices.lunch;
+  if(privateState.camping==='yes'){
+    total+=privateState.tents*config.prices.tent;
+    if(privateState.cMeals==='yes') total+=privateState.persons*config.prices.cMeal;
+    total+=config.prices.overnight;
+    config.bamboo.forEach((b,i)=>{if(privateState.bamboo[i]) total+=privateState.bamboo[i]*b.price});
+  }
+  return total;
+}
+function calcSharedTotal(){return sharedState.persons*config.prices.shared;}
+function calcCampingTotal(){
+  let total=config.prices.campingBase;
+  total+=campingState.tents*config.prices.tent;
+  if(campingState.cMeals==='yes') total+=campingState.persons*config.prices.cMeal;
+  total+=config.prices.overnight;
+  config.bamboo.forEach((b,i)=>{if(campingState.bamboo[i]) total+=campingState.bamboo[i]*b.price});
+  return total;
+}
+
+function renderSite(){
+  document.getElementById('noticeBanner').textContent=config.notice;
+  document.getElementById('heroTitle').textContent=config.heroTitle;
+  document.getElementById('heroSub').textContent=config.heroSub;
+  document.getElementById('footerText').textContent=config.footer;
+  document.getElementById('waHeader').href=`https://wa.me/${config.whatsapp}?text=Hi%20I%20want%20to%20book%20Krem%20Chympe`;
+  let gHTML=''; config.gallery.forEach(url=>{gHTML+=`<div class="card overflow-hidden"><img src="${url}" class="h-28 w-full object-cover"><div class="p-1 text-[10px] text-center">Krem Chympe</div></div>`}); document.getElementById('galleryGrid').innerHTML=gHTML;
+}
+
+function renderBookingForm(){
+  let container=document.getElementById('bookingFormContainer');
+  let label=document.getElementById('bookingPackageLabel');
+  if(selectedPackage==='private'){
+    label.textContent='PRIVATE + CAMPING - Page 2 - Booking Form Only';
+    let total=calcPrivateTotal();
+    let bambooHTML=''; config.bamboo.forEach((b,i)=>{let q=privateState.bamboo[i]||0; bambooHTML+=`<div class="flex justify-between items-center py-2 border-b last:border-0"><div><div class="text-[13px] font-medium">${b.name}</div><span class="text-[11px] text-gray-500">₹${b.price} each</span></div><div class="flex items-center gap-2"><button class="counter-btn" onclick="privateState.bamboo[${i}]=Math.max(0,${q}-1); renderBookingForm()">−</button><span class="text-xs w-4 text-center">${q}</span><button class="counter-btn" onclick="privateState.bamboo[${i}]=${q}+1; renderBookingForm()">+</button></div></div>`});
+    container.innerHTML=`
+    <div class="card purple-top p-5 mb-3"><h3 class="text-[19px] font-semibold">Book Your Krem Chympe Adventure & Camping - Private Package</h3><p class="text-[12px] text-gray-500 mt-1">Private package includes camping add-on (only private has camping). Fill details below.</p><p class="text-red-500 text-xs mt-2">* Indicates required question</p></div>
+    <div class="card p-4 mb-3"><label class="font-medium text-sm">Full Name <span class="text-red-500">*</span></label><input value="${privateState.fullName}" oninput="privateState.fullName=this.value" class="w-full border-b py-2 outline-none text-sm" placeholder="Your answer"></div>
+    <div class="card p-4 mb-3"><label class="font-medium text-sm">WhatsApp Number</label><input value="${privateState.wa}" oninput="privateState.wa=this.value" class="w-full border-b py-2 outline-none text-sm" placeholder="Your answer"></div>
+    <div class="card p-4 mb-3"><label class="font-medium text-sm">Email Id</label><input value="${privateState.email}" oninput="privateState.email=this.value" class="w-full border-b py-2 outline-none text-sm" placeholder="Your answer"></div>
+    <div class="card p-4 mb-3"><label class="font-medium text-sm">Number Of Person <span class="text-red-500">*</span></label><input type="number" min="1" value="${privateState.persons}" oninput="privateState.persons=parseInt(this.value)||1; renderBookingForm()" class="w-full border-b py-2 outline-none text-sm"></div>
+    <div class="card p-4 mb-3"><label class="font-medium text-sm">Tour Date <span class="text-red-500">*</span></label><input type="date" value="${privateState.tourDate}" oninput="privateState.tourDate=this.value" class="w-full border-b py-2 outline-none text-sm"></div>
+    <div class="card p-4 mb-3"><p class="font-semibold text-sm">4×4 Jeep – ₹${config.prices.jeep} per Group *</p><p class="text-[11px] text-gray-500 italic">Without jeep trekking ~20km round trip. Per group.</p><div class="mt-2 space-y-1 text-sm"><label class="flex gap-2"><input type="radio" name="jeep" ${privateState.jeep==='yes'?'checked':''} onclick="privateState.jeep='yes'; renderBookingForm()"> yes (+₹${config.prices.jeep})</label><label class="flex gap-2"><input type="radio" name="jeep" ${privateState.jeep==='no'?'checked':''} onclick="privateState.jeep='no'; renderBookingForm()"> No</label></div></div>
+    <div class="card p-4 mb-3"><p class="font-semibold text-sm">Local Guide – ₹${config.prices.guide} *</p><p class="text-[11px] text-gray-500 italic">Mandatory - offbeat & safety. Per group.</p><label class="flex gap-2 text-sm mt-2"><input type="radio" checked disabled> yes (mandatory, +₹${config.prices.guide})</label></div>
+    <div class="card p-4 mb-3"><p class="font-semibold text-sm">Adventure Activities – ₹${config.prices.adventure} per Person</p><p class="text-[11px] text-gray-500 italic">Includes: Registration & entry, Bamboo rafting, Cave expedition & entry, Swimming, Cliff jumping Khaddum, Life jacket & torch</p><div class="mt-2 space-y-1 text-sm"><label class="flex gap-2"><input type="radio" name="adv" ${privateState.adventure==='yes'?'checked':''} onclick="privateState.adventure='yes'; renderBookingForm()"> yes (+₹${config.prices.adventure}/person)</label><label class="flex gap-2"><input type="radio" name="adv" ${privateState.adventure==='no'?'checked':''} onclick="privateState.adventure='no'; renderBookingForm()"> No</label></div></div>
+    <div class="card p-4 mb-3"><p class="font-semibold text-sm">Lunch – ₹${config.prices.lunch} per person</p>
+      <div class="mt-2 space-y-2"><div class="flex justify-between items-center"><span class="text-xs">Veg Thali</span><div class="flex items-center gap-2"><button class="counter-btn" onclick="privateState.veg=Math.max(0,privateState.veg-1); renderBookingForm()">−</button><span class="text-xs">${privateState.veg}</span><button class="counter-btn" onclick="privateState.veg++; renderBookingForm()">+</button><span class="w-12 text-right text-xs text-[#5B3EE0]">₹${privateState.veg*config.prices.lunch}</span></div></div>
+      <div class="flex justify-between items-center"><span class="text-xs">Chicken Thali</span><div class="flex items-center gap-2"><button class="counter-btn" onclick="privateState.chicken=Math.max(0,privateState.chicken-1); renderBookingForm()">−</button><span class="text-xs">${privateState.chicken}</span><button class="counter-btn" onclick="privateState.chicken++; renderBookingForm()">+</button><span class="w-12 text-right text-xs text-[#5B3EE0]">₹${privateState.chicken*config.prices.lunch}</span></div></div>
+      <div class="flex justify-between items-center"><span class="text-xs">Pork Thali</span><div class="flex items-center gap-2"><button class="counter-btn" onclick="privateState.pork=Math.max(0,privateState.pork-1); renderBookingForm()">−</button><span class="text-xs">${privateState.pork}</span><button class="counter-btn" onclick="privateState.pork++; renderBookingForm()">+</button><span class="w-12 text-right text-xs text-[#5B3EE0]">₹${privateState.pork*config.prices.lunch}</span></div></div></div>
+    </div>
+    <div class="card p-4 mb-3 border-2 border-orange-300"><p class="font-bold text-sm">⛺ Camping Add-on - ONLY in Private Package</p><p class="text-[11px] text-gray-500">Camping available only with private package. Editable via admin dashboard.</p><div class="mt-2 space-y-1 text-sm"><label class="flex gap-2"><input type="radio" name="camping" ${privateState.camping==='yes'?'checked':''} onclick="privateState.camping='yes'; renderBookingForm()"> yes - Add camping</label><label class="flex gap-2"><input type="radio" name="camping" ${privateState.camping==='no'?'checked':''} onclick="privateState.camping='no'; renderBookingForm()"> No</label></div></div>
+    ${privateState.camping==='yes'?`
+    <div class="bg-[#5B3EE0] text-white p-3 rounded-t-[14px] text-sm font-bold">Camping Details - Only Private Package</div>
+    <div class="card rounded-t-none p-4 mb-3"><p class="font-semibold text-sm">Camping Tent Rental – ₹${config.prices.tent} per Tent *</p><p class="text-[11px] text-gray-500 italic">Includes Blanket, Pillows, Chairs. 1 tent = 2 people.</p><div class="flex justify-between items-center mt-2"><span class="text-xs">Number of tents</span><div class="flex items-center gap-2"><button class="counter-btn" onclick="privateState.tents=Math.max(0,privateState.tents-1); renderBookingForm()">−</button><span class="text-xs">${privateState.tents}</span><button class="counter-btn" onclick="privateState.tents++; renderBookingForm()">+</button><span class="text-xs text-[#5B3EE0] font-bold">₹${privateState.tents*config.prices.tent}</span></div></div></div>
+    <div class="card p-4 mb-3"><p class="font-semibold text-sm">Meals – ₹${config.prices.cMeal} per Person *</p><p class="text-[11px] text-gray-500 italic">Dinner Veg Thali, Breakfast 2 Maggi. Veg only.</p><div class="mt-2 space-y-1 text-sm"><label class="flex gap-2"><input type="radio" name="cmeals" ${privateState.cMeals==='yes'?'checked':''} onclick="privateState.cMeals='yes'; renderBookingForm()"> yes (+₹${config.prices.cMeal}/person)</label><label class="flex gap-2"><input type="radio" name="cmeals" ${privateState.cMeals==='no'?'checked':''} onclick="privateState.cMeals='no'; renderBookingForm()"> No</label></div></div>
+    <div class="card p-4 mb-3"><p class="font-semibold text-sm">Overnight Guide – ₹${config.prices.overnight} *</p><p class="text-[11px] text-gray-500 italic">Mandatory - far from village, will prepare dinner & breakfast.</p><label class="flex gap-2 text-sm mt-2"><input type="radio" checked disabled> yes (mandatory, +₹${config.prices.overnight})</label></div>
+    <div class="card p-4 mb-3"><button onclick="document.getElementById('bambooBody').classList.toggle('hidden')" class="w-full text-left font-semibold text-sm flex justify-between">Traditional Bamboo Dishes (Zero Oil) - Editable via Admin ▼</button><div id="bambooBody" class="hidden mt-3">${bambooHTML}</div></div>
+    `:''}
+    <div class="flex justify-between items-center mt-4"><span class="font-bold text-sm">Estimated: ${fmt(total)}</span><button onclick="goToPayment()" class="btn-purple px-8 py-3 rounded-lg font-bold text-sm">${config.buttons.next}</button></div>`;
+  } else if(selectedPackage==='shared'){
+    label.textContent='SHARED PACKAGE - Page 2 - Booking Form Only (No Camping)';
+    let total=calcSharedTotal();
+    container.innerHTML=`
+    <div class="card purple-top p-5 mb-3"><h3 class="text-[19px]">Book Adventure With US - Shared Package</h3><div class="text-[13px] leading-5 mt-3">Kremchympe Adventures – Shared Package<br>₹${config.prices.shared} per person<br>Includes:<br>* 4x4 Jeep<br>* Tour Guide<br>* First aid & Safety gears<br>* Adventure Activities<br>* Entry & Registration Fees<br>* Lunch<br><i>Note: Shared batch: 8 people, Book at least 3 days in advance, ₹${config.prices.advance} advance required<br><b>No Camping in Shared Package - Camping only in Private Package</b></i></div><p class="text-red-500 text-xs mt-3 border-t pt-2">* Indicates required question</p></div>
+    <div class="card p-4 mb-3"><label class="font-medium text-sm">Full Name <span class="text-red-500">*</span></label><input value="${sharedState.fullName}" oninput="sharedState.fullName=this.value" class="w-full border-b py-2 outline-none text-sm" placeholder="Your answer"></div>
+    <div class="card p-4 mb-3"><label class="font-medium text-sm">Phone Number</label><input value="${sharedState.phone}" oninput="sharedState.phone=this.value" class="w-full border-b py-2 outline-none text-sm" placeholder="Your answer"></div>
+    <div class="card p-4 mb-3"><label class="font-medium text-sm">Email</label><input value="${sharedState.email}" oninput="sharedState.email=this.value" class="w-full border-b py-2 outline-none text-sm" placeholder="Your answer"></div>
+    <div class="card p-4 mb-3"><label class="font-medium text-sm">Tour date <span class="text-red-500">*</span></label><input type="date" value="${sharedState.tourDate}" oninput="sharedState.tourDate=this.value" class="w-full border-b py-2 outline-none text-sm"></div>
+    <div class="card p-4 mb-3"><label class="font-medium text-sm">Number Of Adult & children <span class="text-red-500">*</span></label><input type="number" min="1" value="${sharedState.persons}" oninput="sharedState.persons=parseInt(this.value)||1; renderBookingForm()" class="w-full border-b py-2 outline-none text-sm"></div>
+    <div class="flex justify-between items-center mt-4"><span class="font-bold text-sm">Total: ${fmt(total)}</span><button onclick="goToPayment()" class="btn-purple px-8 py-3 rounded-lg font-bold text-sm">${config.buttons.next}</button></div>`;
+  } else {
+    // CAMPING PACKAGE
+    label.textContent='CAMPING PACKAGE - Page 2 - Camping Only Booking';
+    let total=calcCampingTotal();
+    let bambooHTML=''; config.bamboo.forEach((b,i)=>{let q=campingState.bamboo[i]||0; bambooHTML+=`<div class="flex justify-between items-center py-2 border-b last:border-0"><div><div class="text-[13px] font-medium">${b.name}</div><span class="text-[11px] text-gray-500">₹${b.price} each</span></div><div class="flex items-center gap-2"><button class="counter-btn" onclick="campingState.bamboo[${i}]=Math.max(0,${q}-1); renderBookingForm()">−</button><span class="text-xs w-4 text-center">${q}</span><button class="counter-btn" onclick="campingState.bamboo[${i}]=${q}+1; renderBookingForm()">+</button></div></div>`});
+    container.innerHTML=`
+    <div class="card purple-top p-5 mb-3"><h3 class="text-[19px] font-semibold">Book Your Krem Chympe Camping - Separate Package</h3><p class="text-[12px] text-gray-500 mt-1">Overnight camping package - far from village, guide mandatory, blanket/pillows/chairs included. Zero Oil Bamboo Dishes available. Editable via admin.</p><p class="text-red-500 text-xs mt-2">* Indicates required question</p></div>
+    <div class="card p-4 mb-3"><label class="font-medium text-sm">Full Name <span class="text-red-500">*</span></label><input value="${campingState.fullName}" oninput="campingState.fullName=this.value" class="w-full border-b py-2 outline-none text-sm" placeholder="Your answer"></div>
+    <div class="card p-4 mb-3"><label class="font-medium text-sm">WhatsApp Number</label><input value="${campingState.wa}" oninput="campingState.wa=this.value" class="w-full border-b py-2 outline-none text-sm" placeholder="Your answer"></div>
+    <div class="card p-4 mb-3"><label class="font-medium text-sm">Email Id</label><input value="${campingState.email}" oninput="campingState.email=this.value" class="w-full border-b py-2 outline-none text-sm" placeholder="Your answer"></div>
+    <div class="card p-4 mb-3"><label class="font-medium text-sm">Number Of Person <span class="text-red-500">*</span></label><input type="number" min="1" value="${campingState.persons}" oninput="campingState.persons=parseInt(this.value)||1; renderBookingForm()" class="w-full border-b py-2 outline-none text-sm"></div>
+    <div class="card p-4 mb-3"><label class="font-medium text-sm">Tour Date <span class="text-red-500">*</span></label><input type="date" value="${campingState.tourDate}" oninput="campingState.tourDate=this.value" class="w-full border-b py-2 outline-none text-sm"></div>
+    <div class="card p-4 mb-3"><p class="font-semibold text-sm">Camping Base Package – ₹${config.prices.campingBase} *</p><p class="text-[11px] text-gray-500 italic">Includes site permission & basic setup</p></div>
+    <div class="card p-4 mb-3"><p class="font-semibold text-sm">Camping Tent Rental – ₹${config.prices.tent} per Tent *</p><p class="text-[11px] text-gray-500 italic">Includes Blanket, Pillows, Chairs. 1 tent = 2 people.</p><div class="flex justify-between items-center mt-2"><span class="text-xs">Number of tents</span><div class="flex items-center gap-2"><button class="counter-btn" onclick="campingState.tents=Math.max(0,campingState.tents-1); renderBookingForm()">−</button><span class="text-xs">${campingState.tents}</span><button class="counter-btn" onclick="campingState.tents++; renderBookingForm()">+</button><span class="text-xs text-[#5B3EE0] font-bold">₹${campingState.tents*config.prices.tent}</span></div></div></div>
+    <div class="card p-4 mb-3"><p class="font-semibold text-sm">Meals – ₹${config.prices.cMeal} per Person *</p><p class="text-[11px] text-gray-500 italic">Dinner Veg Thali, Breakfast 2 Maggi. Veg only.</p><div class="mt-2 space-y-1 text-sm"><label class="flex gap-2"><input type="radio" name="campCmeals" ${campingState.cMeals==='yes'?'checked':''} onclick="campingState.cMeals='yes'; renderBookingForm()"> yes (+₹${config.prices.cMeal}/person)</label><label class="flex gap-2"><input type="radio" name="campCmeals" ${campingState.cMeals==='no'?'checked':''} onclick="campingState.cMeals='no'; renderBookingForm()"> No</label></div></div>
+    <div class="card p-4 mb-3"><p class="font-semibold text-sm">Overnight Guide – ₹${config.prices.overnight} *</p><p class="text-[11px] text-gray-500 italic">Mandatory - far from village, prepares dinner & breakfast.</p><label class="flex gap-2 text-sm mt-2"><input type="radio" checked disabled> yes (mandatory, +₹${config.prices.overnight})</label></div>
+    <div class="card p-4 mb-3"><button onclick="document.getElementById('bambooBodyCamp').classList.toggle('hidden')" class="w-full text-left font-semibold text-sm flex justify-between">Traditional Bamboo Dishes (Zero Oil) - Admin Editable ▼</button><div id="bambooBodyCamp" class="hidden mt-3">${bambooHTML}</div></div>
+    <div class="flex justify-between items-center mt-4"><span class="font-bold text-sm">Estimated: ${fmt(total)}</span><button onclick="goToPayment()" class="btn-purple px-8 py-3 rounded-lg font-bold text-sm">${config.buttons.next}</button></div>`;
+  }
+}
+
+function goToPayment(){
+  if(selectedPackage==='private'){ if(!privateState.fullName||!privateState.persons||!privateState.tourDate){toast('Fill required * fields'); return;} }
+  else if(selectedPackage==='shared'){ if(!sharedState.fullName||!sharedState.tourDate){toast('Fill required * fields'); return;} }
+  else { if(!campingState.fullName||!campingState.persons||!campingState.tourDate){toast('Fill required * fields'); return;} }
+  renderPaymentPage(); showView('payment');
+}
+function renderPaymentPage(){
+  let container=document.getElementById('paymentContainer');
+  let total = selectedPackage==='private'?calcPrivateTotal(): selectedPackage==='shared'?calcSharedTotal():calcCampingTotal();
+  let paymentMode = selectedPackage==='private'?privateState.payment: selectedPackage==='shared'?sharedState.payment:campingState.payment;
+  let amountPaid = selectedPackage==='private'?privateState.amountPaid: selectedPackage==='shared'?sharedState.amountPaid:campingState.amountPaid;
+
+  let lines=[];
+  if(selectedPackage==='private'){
+    lines.push(`Local Guide (mandatory): ${fmt(config.prices.guide)}`);
+    if(privateState.jeep==='yes') lines.push(`4x4 Jeep: ${fmt(config.prices.jeep)}`);
+    if(privateState.adventure==='yes') lines.push(`Adventure (${privateState.persons}x${config.prices.adventure}): ${fmt(privateState.persons*config.prices.adventure)}`);
+    if(privateState.veg) lines.push(`Veg Thali x${privateState.veg}: ${fmt(privateState.veg*config.prices.lunch)}`);
+    if(privateState.chicken) lines.push(`Chicken Thali x${privateState.chicken}: ${fmt(privateState.chicken*config.prices.lunch)}`);
+    if(privateState.pork) lines.push(`Pork Thali x${privateState.pork}: ${fmt(privateState.pork*config.prices.lunch)}`);
+    if(privateState.camping==='yes'){
+      if(privateState.tents) lines.push(`Tent x${privateState.tents}: ${fmt(privateState.tents*config.prices.tent)}`);
+      if(privateState.cMeals==='yes') lines.push(`Camping Meals (${privateState.persons}x${config.prices.cMeal}): ${fmt(privateState.persons*config.prices.cMeal)}`);
+      lines.push(`Overnight Guide: ${fmt(config.prices.overnight)}`);
+      config.bamboo.forEach((b,i)=>{if(privateState.bamboo[i]) lines.push(`${b.name} x${privateState.bamboo[i]}: ${fmt(privateState.bamboo[i]*b.price)}`)});
+    }
+  } else if(selectedPackage==='shared'){
+    lines.push(`Shared Package (${sharedState.persons} x ₹${config.prices.shared}): ${fmt(total)}`);
+  } else {
+    lines.push(`Camping Base: ${fmt(config.prices.campingBase)}`);
+    if(campingState.tents) lines.push(`Tent x${campingState.tents}: ${fmt(campingState.tents*config.prices.tent)}`);
+    if(campingState.cMeals==='yes') lines.push(`Meals (${campingState.persons}x${config.prices.cMeal}): ${fmt(campingState.persons*config.prices.cMeal)}`);
+    lines.push(`Overnight Guide: ${fmt(config.prices.overnight)}`);
+    config.bamboo.forEach((b,i)=>{if(campingState.bamboo[i]) lines.push(`${b.name} x${campingState.bamboo[i]}: ${fmt(campingState.bamboo[i]*b.price)}`)});
+  }
+  let summaryHTML=lines.map(l=>`<div class="flex justify-between text-[13px] py-1 border-b border-dashed"><span>${l.split(':')[0]}</span><span class="font-semibold">${l.split(':').slice(1).join(':')}</span></div>`).join('');
+
+  let payOptionsHTML=`<div class="card p-4 mb-3"><p class="font-semibold text-sm">Payment mode *</p><div class="mt-3 space-y-2 text-sm">
+  <label class="flex items-center gap-2 border p-3 rounded-lg ${paymentMode.includes('upi')||paymentMode.includes('UPI')?'border-[#5B3EE0] bg-[#F3EFFC]':''}"><input type="radio" name="paymode" ${paymentMode.includes('upi')||paymentMode.includes('UPI')?'checked':''} onclick="setPaymentMode('upi')"> UPI ID</label>
+  <label class="flex items-center gap-2 border p-3 rounded-lg ${paymentMode.includes('qr')||paymentMode.includes('QR')?'border-[#5B3EE0] bg-[#F3EFFC]':''}"><input type="radio" name="paymode" ${paymentMode.includes('qr')||paymentMode.includes('QR')?'checked':''} onclick="setPaymentMode('qr')"> QR Code</label>
+  <label class="flex items-center gap-2 border p-3 rounded-lg ${paymentMode.includes('bank')||paymentMode.includes('Bank')?'border-[#5B3EE0] bg-[#F3EFFC]':''}"><input type="radio" name="paymode" ${paymentMode.includes('bank')||paymentMode.includes('Bank')?'checked':''} onclick="setPaymentMode('bank')"> Bank Transfer</label>
+  </div></div>`;
+
+  let payDetailHTML='';
+  if(paymentMode.includes('upi')||paymentMode.includes('UPI')){
+    payDetailHTML=`<div class="card p-4 mb-3"><h3 class="font-bold text-sm">UPI ID</h3><div class="flex justify-between items-center bg-[#F3EFFC] p-3 rounded mt-2"><code class="text-sm">${config.upi}</code><button onclick="copyText('${config.upi}', this)" class="bg-[#EFEAFB] px-3 py-1 rounded text-xs font-bold text-[#5B3EE0]">Copy</button></div><div class="flex justify-between items-center mt-3"><span class="text-sm">Amount to pay</span><span class="font-mono font-bold text-sm">${fmt(total)}</span><button onclick="copyText('${total}', this)" class="bg-[#EFEAFB] px-3 py-1 rounded text-xs">Copy</button></div></div>`;
+  } else if(paymentMode.includes('qr')||paymentMode.includes('QR')){
+    payDetailHTML=`<div class="card p-4 mb-3 text-center"><h3 class="font-bold text-sm">Scan and Pay - QR Code</h3><img src="${config.qr}" class="w-56 h-56 object-contain mx-auto border rounded-lg mt-3 bg-white"><p class="mt-2 font-bold text-sm">${fmt(total)}</p><button onclick="downloadQR()" class="btn-purple px-4 py-2 rounded mt-3 text-sm">Download QR</button></div>`;
+  } else {
+    payDetailHTML=`<div class="card p-4 mb-3"><h3 class="font-bold text-sm">Bank Details - Copy buttons work 100%</h3><div class="mt-3 space-y-2 text-sm bg-[#F3EFFC] p-3 rounded"><div class="flex justify-between"><span>Holder: ${config.bank.holder}</span><button onclick="copyText('${config.bank.holder}', this)" class="text-[#5B3EE0] text-xs">Copy</button></div><div class="flex justify-between"><span>Acc: ${config.bank.acc}</span><button onclick="copyText('${config.bank.acc}', this)" class="text-[#5B3EE0] text-xs">Copy</button></div><div class="flex justify-between"><span>IFSC: ${config.bank.ifsc}</span><button onclick="copyText('${config.bank.ifsc}', this)" class="text-[#5B3EE0] text-xs">Copy</button></div><div>Bank: ${config.bank.bankName}</div><div class="font-bold mt-2">Amount: ${fmt(total)} <button onclick="copyText('${total}', this)" class="bg-[#EFEAFB] px-2 py-1 rounded text-xs ml-2">Copy</button></div></div></div>`;
+  }
+
+  container.innerHTML=`
+  <div class="card purple-top p-5 mb-3"><h3 class="font-bold">Order Summary - ${selectedPackage.toUpperCase()} - Page 3 Payment Only (No Camping, No Package)</h3><div class="mt-3">${summaryHTML}<div class="flex justify-between font-bold text-base pt-2 mt-2 border-t"><span>Total</span><span>${fmt(total)}</span></div></div></div>
+  ${payOptionsHTML}
+  ${payDetailHTML}
+  <div class="card p-4 mb-3 border-2 border-[#5B3EE0]"><div class="bg-[#5B3EE0] text-white inline-block px-3 py-1 rounded-full text-[11px] font-bold">⚠ PLEASE DON'T SKIP THIS</div><p class="mt-3 font-medium text-[#5B3EE0] text-sm">How much are you paying now?</p><label class="text-sm mt-2 block">Amount Paid (₹)</label><input id="amountPaidInput" type="number" value="${amountPaid}" oninput="updateAmountPaid(this.value)" class="w-full border-b py-2 outline-none text-sm" placeholder="${selectedPackage==='shared'?`Between ₹${config.prices.advance} and ₹${total}`:''}"><div class="mt-4 space-y-1 text-sm"><div class="flex justify-between"><span>Total Booking Amount</span><span class="font-bold">${fmt(total)}</span></div><div class="flex justify-between"><span>Amount Paid</span><span id="paidDisplay">₹${amountPaid}</span></div><div class="flex justify-between font-bold text-base border-t pt-2 mt-2"><span>Amount Due</span><span id="dueDisplay" class="text-red-600">₹${total-amountPaid}</span></div></div></div>
+  <div class="flex justify-between"><button onclick="showView('booking')" class="border border-[#5B3EE0] text-[#5B3EE0] px-6 py-3 rounded-lg text-sm">Back</button><button onclick="submitBooking()" class="btn-purple px-8 py-3 rounded-lg font-bold text-sm">${config.buttons.submit}</button></div>`;
+}
+function setPaymentMode(mode){
+  if(selectedPackage==='private') privateState.payment=mode;
+  else if(selectedPackage==='shared') sharedState.payment=mode;
+  else campingState.payment=mode;
+  renderPaymentPage();
+}
+function updateAmountPaid(val){
+  let v=parseInt(val)||0;
+  if(selectedPackage==='private') privateState.amountPaid=v;
+  else if(selectedPackage==='shared') sharedState.amountPaid=v;
+  else campingState.amountPaid=v;
+  document.getElementById('paidDisplay').textContent='₹'+v;
+  let total = selectedPackage==='private'?calcPrivateTotal(): selectedPackage==='shared'?calcSharedTotal():calcCampingTotal();
+  document.getElementById('dueDisplay').textContent='₹'+(total-v);
+}
+function submitBooking(){
+  let total = selectedPackage==='private'?calcPrivateTotal(): selectedPackage==='shared'?calcSharedTotal():calcCampingTotal();
+  let paid = selectedPackage==='private'?privateState.amountPaid: selectedPackage==='shared'?sharedState.amountPaid:campingState.amountPaid;
+  if(selectedPackage==='shared' && (paid < config.prices.advance || paid > total)){toast(`Amount must be between ₹${config.prices.advance} and ₹${total}`); return;}
+  let bookings=JSON.parse(localStorage.getItem('chympe_bookings')||'[]');
+  let data = selectedPackage==='private'?{...privateState, type:'Private+Camping', total, date:new Date().toISOString()}: selectedPackage==='shared'?{...sharedState, type:'Shared (No Camping)', total, date:new Date().toISOString()}:{...campingState, type:'Camping Only', total, date:new Date().toISOString()};
+  bookings.push(data); localStorage.setItem('chympe_bookings', JSON.stringify(bookings));
+  renderThankyou(total, paid);
+  showView('thankyou');
+}
+function renderThankyou(total, paid){
+  let container=document.getElementById('thankyouContainer');
+  let name = selectedPackage==='private'?privateState.fullName: selectedPackage==='shared'?sharedState.fullName:campingState.fullName;
+  let msg=`New Booking - ${selectedPackage.toUpperCase()}%0AName: ${name}%0ATotal: ${fmt(total)}%0APaid: ₹${paid} Due: ₹${total-paid}%0AUPI: ${config.upi}%0APackage: ${selectedPackage}%0AWhatsApp: ${config.whatsapp}`;
+  container.innerHTML=`<div class="card purple-top p-8 text-center"><h3 class="text-[22px]">Book Adventure With US</h3><p class="mt-4 text-[13px] leading-5">Thank you for your booking !<br>your booking is pending until we verified your payment<br>please send your payment screenshot to our WhatsApp to confirm your booking</p><div class="bg-[#F3EFFC] p-3 rounded-lg mt-4 text-xs text-left"><div class="flex justify-between"><span>Total</span><span class="font-bold">${fmt(total)}</span></div><div class="flex justify-between"><span>Paid</span><span>₹${paid}</span></div><div class="flex justify-between font-bold"><span>Due</span><span class="text-red-600">₹${total-paid}</span></div></div><a href="https://wa.me/${config.whatsapp}?text=${msg}" target="_blank" class="bg-[#25D366] text-white w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-lg font-bold mt-6 text-[14px]">${config.buttons.wa}</a><div class="mt-6 text-[13px] text-[#1A73E8]"><a href="#" onclick="showView('home'); return false;" class="underline block">Back to Home</a><a href="#" onclick="location.reload(); return false;" class="underline block mt-2">Submit another response</a></div></div>`;
+}
+
+// ADMIN
+let tapCount=0;
+document.getElementById('footerText').addEventListener('click',()=>{tapCount++; if(tapCount>=7){openAdmin(); tapCount=0;}});
+function openAdmin(){document.getElementById('adminOverlay').classList.remove('hidden');}
+function closeAdmin(){document.getElementById('adminOverlay').classList.add('hidden');}
+if(window.location.hash==='#admin') openAdmin();
+window.addEventListener('hashchange',()=>{if(location.hash==='#admin') openAdmin();});
+document.getElementById('menuBtn').onclick=()=>document.getElementById('mobileMenu').classList.toggle('hidden');
+function loginAdmin(){let p=document.getElementById('adminPass').value; if(p===config.adminPass){document.getElementById('adminLogin').classList.add('hidden'); document.getElementById('adminPanel').classList.remove('hidden'); loadAdmin();} else toast('Wrong password');}
+function loadAdmin(){
+  document.getElementById('a_notice').value=config.notice;
+  document.getElementById('a_heroTitle').value=config.heroTitle;
+  document.getElementById('a_heroSub').value=config.heroSub;
+  document.getElementById('a_whatsapp').value=config.whatsapp;
+  document.getElementById('a_footer').value=config.footer;
+  document.getElementById('a_adminPass').value=config.adminPass;
+  document.getElementById('a_jeep').value=config.prices.jeep;
+  document.getElementById('a_guide').value=config.prices.guide;
+  document.getElementById('a_adventure').value=config.prices.adventure;
+  document.getElementById('a_lunch').value=config.prices.lunch;
+  document.getElementById('a_tent').value=config.prices.tent;
+  document.getElementById('a_cMeal').value=config.prices.cMeal;
+  document.getElementById('a_overnight').value=config.prices.overnight;
+  document.getElementById('a_shared').value=config.prices.shared;
+  document.getElementById('a_advance').value=config.prices.advance;
+  document.getElementById('a_campingBase').value=config.prices.campingBase;
+  document.getElementById('a_upi').value=config.upi;
+  document.getElementById('a_holder').value=config.bank.holder;
+  document.getElementById('a_acc').value=config.bank.acc;
+  document.getElementById('a_ifsc').value=config.bank.ifsc;
+  document.getElementById('a_bankName').value=config.bank.bankName;
+  document.getElementById('a_qr').value=config.qr;
+  document.getElementById('qrPreview').src=config.qr;
+  document.getElementById('a_privateBtn').value=config.buttons.private;
+  document.getElementById('a_sharedBtn').value=config.buttons.shared;
+  document.getElementById('a_campingBtn').value=config.buttons.camping;
+  document.getElementById('a_nextBtn').value=config.buttons.next;
+  document.getElementById('a_submitBtn').value=config.buttons.submit;
+  document.getElementById('a_waBtn').value=config.buttons.wa;
+  renderBambooAdmin(); renderGalleryAdmin(); renderBookingsAdmin();
+}
+function switchTab(tab){document.querySelectorAll('.adminTab').forEach(el=>el.classList.add('hidden')); document.getElementById('tab-'+tab).classList.remove('hidden'); document.querySelectorAll('.tabBtn').forEach(b=>{b.classList.remove('bg-black','text-white'); b.classList.add('bg-gray-200');}); if(event) event.target.classList.add('bg-black','text-white');}
+function renderBambooAdmin(){let html=''; config.bamboo.forEach((b,i)=>{html+=`<div class="flex gap-2 mb-2"><input value="${b.name}" onchange="config.bamboo[${i}].name=this.value" class="border p-2 rounded flex-1 text-xs"><input type="number" value="${b.price}" onchange="config.bamboo[${i}].price=parseInt(this.value)||0" class="border p-2 rounded w-20 text-xs"><button onclick="config.bamboo.splice(${i},1); renderBambooAdmin()" class="bg-red-500 text-white px-2 rounded text-xs">X</button></div>`}); document.getElementById('bambooAdmin').innerHTML=html;}
+function addBamboo(){config.bamboo.push({name:"New Bamboo Dish (Zero Oil)", price:300}); renderBambooAdmin();}
+function renderGalleryAdmin(){let html=''; config.gallery.forEach((url,i)=>{html+=`<div class="flex gap-2 mb-2 items-center"><img src="${url}" class="w-10 h-10 object-cover rounded"><input value="${url}" onchange="config.gallery[${i}]=this.value" class="border p-1 rounded flex-1 text-[11px]"><button onclick="config.gallery.splice(${i},1); renderGalleryAdmin()" class="bg-red-500 text-white px-2 rounded text-xs">X</button></div>`}); document.getElementById('galleryAdmin').innerHTML=html;}
+function addGallery(){let url=document.getElementById('newGalUrl').value.trim(); if(url){config.gallery.push(url); document.getElementById('newGalUrl').value=''; renderGalleryAdmin();}}
+function renderBookingsAdmin(){let bookings=JSON.parse(localStorage.getItem('chympe_bookings')||'[]'); if(bookings.length===0) document.getElementById('bookingsList').innerHTML='No bookings yet'; else {let html='<div class="space-y-2 max-h-80 overflow-y-auto">'; bookings.forEach((b,i)=>{html+=`<div class="border p-2 rounded"><b>${b.type}</b> - ${b.fullName} - ${b.persons||''} ppl - ${fmt(b.total)} - ${b.tourDate||''} <br><span class="text-gray-400">${new Date(b.date).toLocaleString()}</span> <button onclick="let bs=JSON.parse(localStorage.getItem('chympe_bookings')); bs.splice(${i},1); localStorage.setItem('chympe_bookings', JSON.stringify(bs)); renderBookingsAdmin()" class="text-red-500 ml-2">Delete</button></div>`}); html+='</div>'; document.getElementById('bookingsList').innerHTML=html;}}
+function clearBookings(){if(confirm('Clear all?')){localStorage.removeItem('chympe_bookings'); renderBookingsAdmin();}}
+function saveAdmin(){
+  config.notice=document.getElementById('a_notice').value;
+  config.heroTitle=document.getElementById('a_heroTitle').value;
+  config.heroSub=document.getElementById('a_heroSub').value;
+  config.whatsapp=document.getElementById('a_whatsapp').value;
+  config.footer=document.getElementById('a_footer').value;
+  config.adminPass=document.getElementById('a_adminPass').value;
+  config.prices.jeep=parseInt(document.getElementById('a_jeep').value)||0;
+  config.prices.guide=parseInt(document.getElementById('a_guide').value)||0;
+  config.prices.adventure=parseInt(document.getElementById('a_adventure').value)||0;
+  config.prices.lunch=parseInt(document.getElementById('a_lunch').value)||0;
+  config.prices.tent=parseInt(document.getElementById('a_tent').value)||0;
+  config.prices.cMeal=parseInt(document.getElementById('a_cMeal').value)||0;
+  config.prices.overnight=parseInt(document.getElementById('a_overnight').value)||0;
+  config.prices.shared=parseInt(document.getElementById('a_shared').value)||0;
+  config.prices.advance=parseInt(document.getElementById('a_advance').value)||0;
+  config.prices.campingBase=parseInt(document.getElementById('a_campingBase').value)||0;
+  config.upi=document.getElementById('a_upi').value;
+  config.bank.holder=document.getElementById('a_holder').value;
+  config.bank.acc=document.getElementById('a_acc').value;
+  config.bank.ifsc=document.getElementById('a_ifsc').value;
+  config.bank.bankName=document.getElementById('a_bankName').value;
+  config.qr=document.getElementById('a_qr').value;
+  config.buttons.private=document.getElementById('a_privateBtn').value;
+  config.buttons.shared=document.getElementById('a_sharedBtn').value;
+  config.buttons.camping=document.getElementById('a_campingBtn').value;
+  config.buttons.next=document.getElementById('a_nextBtn').value;
+  config.buttons.submit=document.getElementById('a_submitBtn').value;
+  config.buttons.wa=document.getElementById('a_waBtn').value;
+  saveConfig(); renderSite(); toast('Saved 100% - Website Updated'); closeAdmin();
+}
+function exportConfig(){let blob=new Blob([JSON.stringify(config,null,2)],{type:'application/json'}); let a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='chympe_config.json'; a.click();}
+document.getElementById('qrFile')?.addEventListener('change', e=>{let file=e.target.files[0]; if(!file) return; let r=new FileReader(); r.onload=ev=>{config.qr=ev.target.result; document.getElementById('a_qr').value=ev.target.result; document.getElementById('qrPreview').src=ev.target.result; toast('QR uploaded');}; r.readAsDataURL(file);});
+
+renderSite();
+</script>
+</body>
+</html>
